@@ -13,7 +13,6 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   css: [],
@@ -49,6 +48,18 @@ export default {
 
   axios: {
     baseURL: process.env.API_BASE_URL || 'http://localhost:3001',
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_BASE_URL
+    }
   },
 
   build: {},
