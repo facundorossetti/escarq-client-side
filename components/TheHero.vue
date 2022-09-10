@@ -11,7 +11,15 @@
           <NuxtLink to="/">Accesorios</NuxtLink>
         </v-col>
         <v-col cols="4" align="end">
-          <v-btn>{{ chartItems }}</v-btn>
+          <v-badge
+            color="pink"
+            :content="chartItems"
+            overlap
+          >
+          <v-btn color="primary" small fab>
+              <v-icon>mdi-cart</v-icon>
+            </v-btn>
+          </v-badge>
         </v-col>
       </v-row>
     </v-container>
@@ -23,7 +31,7 @@ export default {
   name: 'TheHero',
   computed: {
     chartItems() {
-      return this.$store.getters.getTotalItems
+      return this.$store.getters.getTotalItems;
     },
   },
 }
