@@ -14,8 +14,8 @@
         <div class="d-flex flex-column align-center justify-center">
           <h3>{{ product.description }}</h3>
           <div class="d-flex align-center my-3">
-            <v-btn :disabled="product.stock < 1 || !sizes[sizeSelector]" color="primary" :elevation="3" class="mr-5" @click="$emit('clickOnBuy', {product: product, size: sizes[sizeSelector], quantity: quantity})">Comprar</v-btn>
-            <v-btn :disabled="product.stock < 1 || !sizes[sizeSelector]"  color="primary" icon @click="$emit('clickOnAddToChart', {product: product, size: sizes[sizeSelector], quantity: quantity})">
+            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" :elevation="3" class="mr-5" @click="$emit('clickOnBuy', {product: product, size: sizes[sizeSelector]})">Comprar</v-btn>
+            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" icon @click="$emit('clickOnAddToChart', {product: product, size: sizes[sizeSelector]})">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
           </div>
@@ -34,7 +34,7 @@
             />
           </div>
           <v-btn-toggle v-model="sizeSelector" mandatory color="primary">
-            <v-btn v-for="size in sizes" :key="size" :disabled="product.size !== size" small text>
+            <v-btn v-for="size in sizes" :key="size" small text :disabled="product.stock.size[size] < 1">
               {{ size }}
             </v-btn>
           </v-btn-toggle>
@@ -58,9 +58,14 @@ export default {
     return {
       quantity: 1,
       sizeSelector: undefined,
-      sizes: ['XS', 'S', 'M', 'L', 'XL'],
+      sizes: ['xs', 's', 'm', 'l', 'xl'],
     };
   },
+  methods: {
+    console() {
+      console.log('hola');
+    }
+  }
 };
 </script>
 

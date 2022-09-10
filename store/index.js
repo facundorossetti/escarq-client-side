@@ -22,10 +22,6 @@ export const getters = {
     return state.chart
   },
   getTotalItems(state) {
-    let items = 0;
-    state.chart.forEach((item) => {
-      items += item.quantity;
-    })
-    return items
+    return state.chart.length;
   },
 }

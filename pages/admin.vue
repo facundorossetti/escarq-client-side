@@ -109,6 +109,20 @@
                       lazy-validation
                     >
                       <v-row>
+                        <v-col cols="4">
+                          <v-text-field
+                            v-model="productToCreate.id"
+                            :rules="[v => !!v || 'Requerido.']"
+                            label="ID"
+                            autofocus
+                            validate-on-blur
+                            outlined
+                            rounded
+                            required
+                            type="text"
+                            class="rounded-lg"
+                          ></v-text-field>
+                        </v-col>
                         <v-col cols="8">
                           <v-text-field
                             v-model="productToCreate.type"
@@ -120,20 +134,7 @@
                             rounded
                             required
                             type="text"
-                            class="rounded-lg mb-2"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="4">
-                          <v-text-field
-                            v-model="productToCreate.stock"
-                            label="Cantidad"
-                            type="number"
-                            validate-on-blur
-                            :rules="[v => !!v || 'Requerido.']"
                             class="rounded-lg"
-                            outlined
-                            rounded
-                            required
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -148,7 +149,7 @@
                             rounded
                             required
                             type="text"
-                            class="rounded-lg mb-2"
+                            class="rounded-lg"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -171,25 +172,61 @@
                             v-model="productToCreate.color"
                             label="Color"
                             type="text"
-                            validate-on-blur
-                            :rules="[v => !!v || 'Requerido.']"
                             class="rounded-lg"
                             outlined
                             rounded
-                            required
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <v-text-field
+                            v-model="productToCreate.stock.size.xs"
+                            label="Talle XS"
+                            type="number"
+                            class="rounded-lg"
+                            outlined
+                            rounded
                           ></v-text-field>
                         </v-col>
                         <v-col>
                           <v-text-field
-                            v-model="productToCreate.size"
-                            label="Talle"
-                            type="text"
-                            validate-on-blur
-                            :rules="[v => !!v || 'Requerido.']"
+                            v-model="productToCreate.stock.size.s"
+                            label="Talle S"
+                            type="number"
                             class="rounded-lg"
                             outlined
                             rounded
-                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col>
+                          <v-text-field
+                            v-model="productToCreate.stock.size.m"
+                            label="Talle M"
+                            type="number"
+                            class="rounded-lg"
+                            outlined
+                            rounded
+                          ></v-text-field>
+                        </v-col>
+                        <v-col>
+                          <v-text-field
+                            v-model="productToCreate.stock.size.l"
+                            label="Talle L"
+                            type="number"
+                            class="rounded-lg"
+                            outlined
+                            rounded
+                          ></v-text-field>
+                        </v-col>
+                        <v-col>
+                          <v-text-field
+                            v-model="productToCreate.stock.size.xl"
+                            label="Talle XL"
+                            type="number"
+                            class="rounded-lg"
+                            outlined
+                            rounded
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -232,21 +269,38 @@
                 <v-data-table
                   :headers="productHeaders"
                   :items="productItems"
+                  show-expanded
                   :items-per-page="10"
                   :search="searchUsers"
-                  dense
                   fixed-header
+                  item-key="id"
                   :loading="$fetchState.pending"
                   class="elevation-3 rounded-lg"
+                  :single-expand="singleExpand"
+                  :expanded.sync="expanded"
+                  show-expand
                 >
                   <template #[`item.actions`]="{ item }">
                     <td class="text-right">
                       <v-icon
                         small
-                        @click="deleteProduct(item.id)"
+                        @click="deleteProduct(item)"
                       >
                         mdi-delete
                       </v-icon>
+                    </td>
+                  </template>
+                  <template #expanded-item="{ headers, item }">
+                    <td :colspan="headers.length" class="text-center">
+                      <div class="d-flex align-center justify-space-around full-widt">
+                        <p class="ma-0 font-weight-medium">STOCK:</p>
+                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.xs < 1 ? 'red--text' : 'green--text']">XS: {{ item.stock.size.xs }}</p>
+                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.s < 1 ? 'red--text' : 'green--text']">S: {{ item.stock.size.s }}</p>
+                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.m < 1 ? 'red--text' : 'green--text']">M: {{ item.stock.size.m }}</p>
+                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.l < 1 ? 'red--text' : 'green--text']">L: {{ item.stock.size.l }}</p>
+                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.xl < 1 ? 'red--text' : 'green--text']">XL: {{ item.stock.size.xl }}</p>
+                        <p class="ma-0"></p>
+                      </div>
                     </td>
                   </template>
                 </v-data-table>
@@ -406,6 +460,8 @@ export default {
   layout: 'user',
   data() {
     return {
+      expanded: [],
+      singleExpand: false,
       email: '',
       password: '',
       showPasswordIcon: false,
@@ -451,15 +507,15 @@ export default {
           text: 'Descripcion',
           value: 'description',
         },
-        {
-          text: 'Talle',
-          value: 'size',
-        },
+        // {
+        //   text: 'Talle',
+        //   value: 'size',
+        // },
         {
           text: 'Color',
           value: 'color',
         },
-        { text: 'Cant. stock', value: 'stock' },
+        // { text: 'Cant. stock', value: '' },
         { text: 'Precio', value: 'price' },
         { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false},
       ],
@@ -472,11 +528,18 @@ export default {
       productToCreate: { 
         type: '', 
         description: '', 
-        size: '', 
         color: '', 
-        stock: '', 
-        price: '', 
-        imageurl: '', 
+        stock:  {
+          size: {
+            xs: 0,
+            s: 0,
+            m: 0,
+            l: 0,
+            xl: 0
+          },
+        price: '',
+        imageurl: ''
+        },
       },
       tab: null,
       items: [
