@@ -4,17 +4,22 @@ export const state = () => ({
 
 export const mutations = {
   addItemToChart(state, item) {
-    const repeat = state.chart.find((e) => e.product.id === item.product.id);
-    if (repeat) {
-      state.chart.forEach((item) => {
-        if (repeat.product.id === item.product.id) {
-          item.quantity++
+    const duplicated = state.chart.find((e) => (e.id === item.id && e.size === item.size));
+    if(duplicated) {
+      state.chart.forEach((e) => {
+        if(e.id === duplicated.id && e.size === duplicated.size) {
+          e.quantity = parseFloat(e.quantity) + parseFloat(duplicated.quantity);
         }
       });
     } else {
       state.chart.push(item);
     }
   },
+  removeItemFromChart(state, product) {
+    const show = state.chart.find((e) => (e.id === product.id && e.size === product.size));
+    console.log(show);
+    // state.chart = state.chart.filter(item => (item.id !== product.id && item.size !== product.size));
+  }
 }
 
 export const getters = {
@@ -22,6 +27,14 @@ export const getters = {
     return state.chart
   },
   getTotalItems(state) {
-    return state.chart.length;
+    return state.chart.reduce((total, item) => total + parseFloat(item.quantity), 0);
   },
+  getTotalPrice(state) {
+    return state.chart.reduce((total, item) => {
+      const quantity = parseFloat(item.quantity);
+      const price = parseFloat(item.price);
+      const totalProduct = quantity * price;
+      return total + totalProduct;
+    }, 0);
+  }
 }

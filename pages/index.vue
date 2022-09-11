@@ -11,6 +11,7 @@
             />
           </div>
         </div>
+        <v-btn @click="testMercadoPago">TEST MERCADOPAGO</v-btn>
       </v-row>
     </v-container>
   </div>
@@ -39,6 +40,15 @@ export default {
     addToChart(product) {
       this.addItemToChart(product)
     },
+    async testMercadoPago() {
+      this.working = true;
+      const { data } = await this.$axios.post('/mercadopago');
+      if (data.body.init_point) {
+        window.location.href = data.body.init_point;
+        this.working = false;
+      }
+      console.log(data.body.init_point);
+    }
   }
 }
 </script>

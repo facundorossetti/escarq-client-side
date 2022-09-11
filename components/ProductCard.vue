@@ -15,7 +15,7 @@
           <h3>{{ product.description }}</h3>
           <div class="d-flex align-center my-3">
             <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" :elevation="3" class="mr-5" @click="$emit('clickOnBuy', {product: product, size: sizes[sizeSelector]})">Comprar</v-btn>
-            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" icon @click="$emit('clickOnAddToChart', {product: product, size: sizes[sizeSelector]})">
+            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" icon @click="$emit('clickOnAddToChart', {id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
           </div>
@@ -44,6 +44,8 @@
   </v-hover>
 </template>
 
+<!-- // max stock of a product: product.stock.size[sizes[sizeSelector]] -->
+
 <script>
 export default {
   name: 'ProductCard',
@@ -62,8 +64,8 @@ export default {
     };
   },
   methods: {
-    console() {
-      console.log('hola');
+    console(a) {
+      console.log(a);
     }
   }
 };

@@ -284,7 +284,7 @@
                     <td class="text-right">
                       <v-icon
                         small
-                        @click="deleteProduct(item)"
+                        @click="deleteProduct(item.id)"
                       >
                         mdi-delete
                       </v-icon>
@@ -472,7 +472,7 @@ export default {
       createUserDialog: false,
       createProductDialog: false,
       searchUsers: '',
-      logged: true,
+      logged: false,
       rules: {
         required: value => !!value || 'Requerido.',
         min: v => v.length >= 8 || 'Minimo 8 caracteres',
