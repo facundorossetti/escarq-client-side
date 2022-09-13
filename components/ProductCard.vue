@@ -14,8 +14,8 @@
         <div class="d-flex flex-column align-center justify-center">
           <h3>{{ product.description }}</h3>
           <div class="d-flex align-center my-3">
-            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" :elevation="3" class="mr-5" @click="$emit('clickOnBuy', {product: product, size: sizes[sizeSelector]})">Comprar</v-btn>
-            <v-btn :disabled="product.stock.size[sizeSelector] < 1 || !sizes[sizeSelector]" color="primary" icon @click="$emit('clickOnAddToChart', {id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
+            <v-btn :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]" color="primary" :elevation="3" class="mr-5" @click="$emit('clickOnBuy', {product: product, size: sizes[sizeSelector]})">Comprar</v-btn>
+            <v-btn :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]" color="primary" icon @click="$emit('clickOnAddToChart', {id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
           </div>
@@ -23,11 +23,13 @@
             <h3>${{ product.price }}</h3>
             <v-text-field
               v-model="quantity"
-              :disabled="product.stock < 1 || !sizes[sizeSelector]"
+              :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]"
               class="quantity-field-selector ml-4"
               outlined
               hide-details
               rounded
+              :max="product.stock.size[sizes[sizeSelector]]"
+              :min="0"
               color="primary"
               type="number"
               dense
@@ -65,7 +67,7 @@ export default {
   },
   methods: {
     console(a) {
-      console.log(a);
+      console.log(a.stock.size[this.sizes[this.sizeSelector]]);
     }
   }
 };
@@ -76,6 +78,6 @@ export default {
   transform: scale(1.1);
 }
 .quantity-field-selector {
-  max-width: 90px;
+  width: 85px;
 }
 </style>

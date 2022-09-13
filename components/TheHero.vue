@@ -5,7 +5,7 @@
         <v-col cols="4" align="start"> 
           <NuxtLink to="/admin">ADMIN</NuxtLink>
         </v-col>
-        <v-col cols="4" align="center" class="navigation-menu d-flex">
+        <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4" align="center" class="navigation-menu d-flex">
           <NuxtLink to="/">Buzos</NuxtLink>
           <NuxtLink to="/">Remeras</NuxtLink>
           <NuxtLink to="/">Joggers</NuxtLink>

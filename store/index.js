@@ -16,9 +16,10 @@ export const mutations = {
     }
   },
   removeItemFromChart(state, product) {
-    const show = state.chart.find((e) => (e.id === product.id && e.size === product.size));
-    console.log(show);
-    // state.chart = state.chart.filter(item => (item.id !== product.id && item.size !== product.size));
+    const itemToRemove = state.chart.find((e) => (e.id === product.id && e.size === product.size));
+    state.chart = state.chart.filter(item => {
+      return item !== itemToRemove;
+    });
   }
 }
 

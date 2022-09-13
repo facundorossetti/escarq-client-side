@@ -2,15 +2,13 @@
   <div>
     <v-container class="products-container">
       <v-row justify="center" align="center">
-        <div class="d-flex flex-wrap mt-5 mb-16">
-          <div v-for="product in productItems" :key="product.id" class="ma-2">
+          <v-col v-for="product in productItems" :key="product.id" cols="12" md="4" class="ma-2">
             <product-card 
               :product="product" 
               @clickOnAddToChart="addToChart" 
               @clickOnBuy="addToChart" 
             />
-          </div>
-        </div>
+          </v-col>
       </v-row>
     </v-container>
   </div>
@@ -44,4 +42,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 600px) {
+  .col-12 {
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+  }
+}
 </style>
