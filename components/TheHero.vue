@@ -56,7 +56,7 @@
           <v-btn color="primary" block text>Ver carrito</v-btn>
         </v-col>
         <v-col cols="12" align="center">
-          <v-btn color="primary" block>Pagar</v-btn>
+          <v-btn color="primary" block :loading="working" @click="buyChartItems">Pagar</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       chartModal: false,
+      working: false,
     };
   },
   computed: {
@@ -90,22 +91,30 @@ export default {
       return this.$store.getters.getTotalPrice;
     }
   },
-  // mounted() {
-  //   const mpIntegration = document.createElement('script');
-  //   mpIntegration.setAttribute('src', 'https://sdk.mercadopago.com/js/v2');
-  //   document.head.appendChild(mpIntegration);
-  //   console.log(mpIntegration);
-  //   const mp = new MercadoPago('PUBLIC_KEY', {
-  //     locale: 'es-AR'
-  //   });
-  //   console.log(mp);
-  // },
   methods: {
     openChart() {
       this.chartModal = true;
     },
     deleteProduct(product) {
       this.$store.commit('removeItemFromChart', product);
+    },
+    async buyChartItems() {
+      this.working = true;
+      const items = this.$store.getters.getChartItems.map((e) => {
+        return {
+          "id": e.id,
+          "title": e.description,
+          "description": e.size,
+          "picture_url": e.imageurl,
+          "quantity": e.quantity,
+          "unit_price": parseFloat(e.price)
+        }
+      });
+      const { data } = await this.$axios.post('/mercadopago', items);
+      this.working = false;
+      if (data.body.init_point) {
+        window.location.href = data.body.init_point;
+      };
     }
   }
 }
