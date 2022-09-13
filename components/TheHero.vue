@@ -2,7 +2,9 @@
   <div class="TheHero">
     <v-container>
       <v-row justify="space-between" align="center">
-        <v-col cols="4" align="start"> Logo </v-col>
+        <v-col cols="4" align="start"> 
+          <NuxtLink to="/admin">ADMIN</NuxtLink>
+        </v-col>
         <v-col cols="4" align="center" class="navigation-menu d-flex">
           <NuxtLink to="/">Buzos</NuxtLink>
           <NuxtLink to="/">Remeras</NuxtLink>
