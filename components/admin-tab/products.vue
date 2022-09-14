@@ -6,7 +6,6 @@
           <div class="d-flex mb-5">
             <v-btn
               color="primary"
-              dark
               class="rounded-lg flex-grow-0 flex-shrink-0"
               elevation="3"
               :disabled="!selectedProductsIds.length"
@@ -186,7 +185,7 @@
                     color="primary"
                     :loading="loadingProducts"
                     :disabled="loadingProducts || !validCreateProduct"
-                    @click="createProduct"
+                    @click="createProductToCreate"
                   >
                     Guardar
                   </v-btn>
@@ -379,7 +378,6 @@
           </v-data-table>
           <v-btn
             color="primary"
-            dark
             class="mt-4 rounded-lg flex-grow-0 flex-shrink-0"
             elevation="3"
             @click="createProductDialogHandler(true)"
@@ -412,10 +410,10 @@ export default {
             m: 0,
             l: 0,
             xl: 0
-          },
-          price: '',
-          imageurl: ''
-        }
+          }
+        },
+        price: null,
+        imageurl: ''
       },
       productToUpdate: {
         id: '',
@@ -453,7 +451,7 @@ export default {
           class: 'table-header-custom'
         },
         { text: 'Precio', value: 'price', class: 'table-header-custom' },
-        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
+        { text: 'Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
       ],
     }
   },
@@ -539,22 +537,34 @@ export default {
     ...mapMutations('products', ['populateProducts', 'searchProductsHandler', 'selectedProductsHandler', 'editProductDialogHandler', 'validUpdateProductHandler', 'createProductDialogHandler', 'validCreateProductHandler']),
     ...mapActions('products', ['getProducts', 'updateProduct', 'createProduct', 'deleteProduct']),
     createProductToUpdate () {
-      function cleanObject (obj) {
-        for (const propName in obj) {
-          if (!obj[propName]) {
-            delete obj[propName]
-          } else {
-            obj[propName] = parseFloat(obj[propName])
-          }
-        }
-        return obj
-      }
-      const sizes = cleanObject(this.productToUpdate.stock.size)
+      const sizes = this.cleanObject(this.productToUpdate.stock.size)
       const selectedProductsIds = this.selectedProducts.map(product => product.id)
       selectedProductsIds.forEach((id) => {
         this.updateProduct({id, sizes})
       })
     },
+    createProductToCreate() {
+      this.productToCreate.stock.size = this.objStringToNumber(this.productToCreate.stock.size);
+      this.createProduct(this.productToCreate);
+    },
+    // transform object string values into number
+    objStringToNumber (obj) {
+      for (const propName in obj) {
+        obj[propName] = parseFloat(obj[propName])
+      }
+      return obj
+    },
+    // Remove object null values and transform string values to number
+    cleanObject (obj) {
+      for (const propName in obj) {
+        if (!obj[propName]) {
+          delete obj[propName]
+        } else {
+          obj[propName] = parseFloat(obj[propName])
+        }
+      }
+      return obj
+    }
   }
 }
 </script>

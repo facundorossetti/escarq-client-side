@@ -88,123 +88,7 @@
       </v-tab-item>
 
       <v-tab-item>
-        <v-container class="py-5">
-          <v-row justify="center" align="center">
-            <v-col cols="12" align="center">
-              <div class="d-flex flex-column">
-                <div class="d-flex mb-5">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                    elevation="3"
-                    @click="createUserDialog = true"
-                  >
-                    Crear usuario
-                  </v-btn>
-                  <v-spacer />
-                  <v-text-field
-                    v-model="searchUsers"
-                    append-icon="mdi-magnify"
-                    label="Buscar"
-                    elevation="3"
-                    hide-details
-                    dense
-                    solo
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                  />
-                </div>
-                <v-dialog
-                  v-model="createUserDialog"
-                  max-width="400px"
-                >
-                  <v-card class="pa-8 rounded-lg">
-                    <v-form
-                      v-model="validCreateUser"
-                      lazy-validation
-                    >
-                      <v-text-field
-                        v-model="userToCreate.name"
-                        :rules="[v => !!v || 'Requerido.']"
-                        label="Nombre"
-                        autofocus
-                        validate-on-blur
-                        outlined
-                        rounded
-                        required
-                        type="text"
-                        class="rounded-lg mb-2"
-                      />
-                      <v-text-field
-                        v-model="userToCreate.email"
-                        :rules="[
-                          v => !!v || 'Requerido.',
-                          v => /.+@.+\..+/.test(v) || 'E-mail invalido'
-                        ]"
-                        label="E-mail"
-                        validate-on-blur
-                        outlined
-                        rounded
-                        required
-                        type="email"
-                        class="rounded-lg mb-2"
-                      />
-                      <v-text-field
-                        v-model="userToCreate.password"
-                        label="Contraseña"
-                        type="password"
-                        validate-on-blur
-                        :rules="[v => !!v || 'Requerido.', v => v.length >= 8 || 'Minimo 8 caracteres']"
-                        class="rounded-lg"
-                        outlined
-                        rounded
-                        required
-                      />
-                      <div class="d-flex mt-3">
-                        <v-btn
-                          color="primary"
-                          text
-                          @click="createUserDialog = false"
-                        >
-                          Cancelar
-                        </v-btn>
-                        <v-spacer />
-                        <v-btn
-                          color="primary"
-                          :loading="working"
-                          :disabled="working || !validCreateUser"
-                          @click="createUser"
-                        >
-                          Guardar
-                        </v-btn>
-                      </div>
-                    </v-form>
-                  </v-card>
-                </v-dialog>
-                <v-data-table
-                  :headers="userHeaders"
-                  :items="userItems"
-                  :search="searchUsers"
-                  hide-default-footer
-                  fixed-header
-                  :loading="$fetchState.pending"
-                  class="elevation-3 rounded-lg"
-                >
-                  <template #[`item.actions`]="{ item }">
-                    <td class="text-right">
-                      <v-icon
-                        small
-                        @click="deleteUser(item.id)"
-                      >
-                        mdi-delete
-                      </v-icon>
-                    </td>
-                  </template>
-                </v-data-table>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
+        <admin-tab-users />
       </v-tab-item>
 
       <v-tab-item>
@@ -215,7 +99,6 @@
                 <div class="d-flex mb-5">
                   <v-btn
                     color="primary"
-                    dark
                     class="rounded-lg flex-grow-0 flex-shrink-0"
                     elevation="3"
                     @click="modifyOrderStatusDialog = true"
@@ -466,110 +349,18 @@ export default {
       selectStatusOrdersToUpdate: null,
       orderStatuses: ['Pendiente', 'Entregado'],
       ordersListSelection: 1,
-      expanded: [],
-      selectedProducts: [],
       selectOptionToModifyProduct: 'Stock',
-      singleExpand: false,
       email: '',
       password: '',
       showPasswordIcon: false,
       valid: false,
-      validCreateUser: false,
-      validCreateProduct: false,
-      validUpdateProduct: false,
       working: false,
-      createUserDialog: false,
-      createProductDialog: false,
       modifyOrderStatusDialog: false,
-      editProductDialog: false,
       paymentsDialog: false,
-      searchUsers: '',
       searchOrders: '',
       searchPayments: '',
       paymentDialogItems: [],
       logged: true,
-      rules: {
-        required: value => !!value || 'Requerido.',
-        min: v => v.length >= 8 || 'Minimo 8 caracteres'
-        // emailMatch: (v) => v === "hola@hola.com" || 'No existe ningun usuario con ese correo',
-      },
-      userHeaders: [
-        {
-          text: 'ID',
-          align: 'start',
-          value: 'id',
-          class: 'table-header-custom'
-        },
-        {
-          text: 'Name',
-          value: 'name',
-          class: 'table-header-custom'
-        },
-        { text: 'Email', value: 'email', class: 'table-header-custom' },
-        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
-
-      ],
-      userItems: [],
-      productHeaders: [
-        {
-          text: 'ID',
-          align: 'start',
-          value: 'id',
-          class: 'table-header-custom'
-        },
-        {
-          text: 'Tipo',
-          value: 'type',
-          class: 'table-header-custom'
-        },
-        {
-          text: 'Descripcion',
-          value: 'description',
-          class: 'table-header-custom'
-        },
-        {
-          text: 'Color',
-          value: 'color',
-          class: 'table-header-custom'
-        },
-        { text: 'Precio', value: 'price', class: 'table-header-custom' },
-        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
-      ],
-      productItems: [],
-      userToCreate: {
-        name: '',
-        email: '',
-        password: ''
-      },
-      productToCreate: {
-        type: '',
-        description: '',
-        color: '',
-        stock: {
-          size: {
-            xs: 0,
-            s: 0,
-            m: 0,
-            l: 0,
-            xl: 0
-          },
-          price: '',
-          imageurl: ''
-        }
-      },
-      productToUpdate: {
-        id: '',
-        stock: {
-          size: {
-            xs: 0,
-            s: 0,
-            m: 0,
-            l: 0,
-            xl: 0
-          }
-        },
-        price: null
-      },
       tab: null,
       items: [
         'productos', 'usuarios', 'ordenes de compra', 'pagos'
@@ -645,8 +436,6 @@ export default {
     }
   },
   async fetch () {
-    const { data: users } = await this.$axios('/users')
-    const { data: products } = await this.$axios('/products')
     const { data: orders } = await this.$axios('/orders')
     const { data: payments } = await this.$axios('/payments')
     this.payments = payments
@@ -661,52 +450,13 @@ export default {
       }
       return order
     })
-    this.userItems = users
-    this.productItems = products
   },
   computed: {
     ordersId () {
       return this.orders.map(order => order.id)
     },
-    selectedProductsIds () {
-      return this.selectedProducts.map(product => product.id)
-    }
   },
   methods: {
-    async updateProduct (id, sizes) {
-      await this.$axios.patch('/updateProduct', { id, sizes })
-        .then((res) => {
-          this.$fetch()
-        })
-      this.working = false
-      this.editProductDialog = false
-      this.productToUpdate.stock.size = {
-        xs: 0,
-        s: 0,
-        m: 0,
-        l: 0,
-        xl: 0
-      }
-    },
-    createProductToUpdate () {
-      this.working = true
-      const sizes = this.cleanObject(this.productToUpdate.stock.size)
-      this.selectedProductsIds.forEach((id) => {
-        this.updateProduct(id, sizes)
-      })
-    },
-
-    // Clean object from null values and convert string to number
-    cleanObject (obj) {
-      for (const propName in obj) {
-        if (!obj[propName]) {
-          delete obj[propName]
-        } else {
-          obj[propName] = parseFloat(obj[propName])
-        }
-      }
-      return obj
-    },
     showInConsole () {
       
     },
@@ -732,40 +482,6 @@ export default {
       if (this.valid) {
         this.logged = true
       }
-    },
-    async createUser () {
-      if (this.validCreateUser) {
-        this.working = true
-        await this.$axios.post('/users', this.userToCreate)
-          .then((res) => {
-            this.$fetch()
-            this.createUserDialog = false
-          })
-        this.working = false
-      };
-    },
-    async deleteUser (id) {
-      await this.$axios.delete(`/users/${id}`)
-        .then((res) => {
-          this.$fetch()
-        })
-    },
-    async deleteProduct (id) {
-      await this.$axios.delete(`/products/${id}`)
-        .then((res) => {
-          this.$fetch()
-        })
-    },
-    async createProduct () {
-      if (this.validCreateProduct) {
-        this.working = true
-        await this.$axios.post('/products', this.productToCreate)
-          .then((res) => {
-            this.$fetch()
-            this.createProductDialog = false
-          })
-        this.working = false
-      };
     },
     openOrderModal (order) {
       this.orderModalItems = order

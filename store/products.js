@@ -56,12 +56,13 @@ export const actions = {
       .catch((error) => console.log(error))
     commit('editProductDialogHandler', false)
   },
-  async createProduct ({ commit, dispatch, state }) {
-    // if (state.validCreateProduct) {
-    //   await this.$axios.post('/products', state.productToCreate)
-    //   dispatch('getProducts')
-    //   commit('createProductDialogHandler', false)
-    // };
+  async createProduct ({ commit, dispatch, state }, product) {
+    if (state.validCreateProduct) {
+      await this.$axios.post('/products', product)
+        .then(() => dispatch('getProducts'))
+        .catch((error) => console.log(error))
+      commit('createProductDialogHandler', false)
+    };
   },
   async deleteProduct ({ dispatch }, id) {
     await this.$axios.delete(`/products/${id}`)
