@@ -222,6 +222,11 @@
                       </v-icon>
                     </td>
                   </template>
+                  <template #[`item.date_created`]="{ item }">
+                    <td>
+                      {{ item.date_created ? new Date(item.date_created).toLocaleString('es-AR') : ''}}
+                    </td>
+                  </template>
                   <template #[`item.amount`]="{ item }">
                     <td>
                       $ {{ item.amount }}
@@ -316,6 +321,11 @@
                       </v-icon>
                     </td>
                   </template>
+                  <template #[`item.date_created`]="{ item }">
+                    <td>
+                      {{ item.date_created ? new Date(item.date_created).toLocaleString('es-AR') : ''}}
+                    </td>
+                  </template>
                   <template #[`item.amount`]="{ item }">
                     <td>
                       $ {{ item.amount }}
@@ -380,7 +390,7 @@ export default {
         },
         {
           text: 'Fecha de Creacion',
-          value: 'date',
+          value: 'date_created',
           class: 'table-header-custom'
         },
         {
@@ -418,7 +428,7 @@ export default {
         },
         {
           text: 'Fecha de Creacion',
-          value: 'date',
+          value: 'date_created',
           class: 'table-header-custom'
         },
         {
@@ -450,6 +460,7 @@ export default {
       }
       return order
     })
+    console.log(orders);
   },
   computed: {
     ordersId () {
