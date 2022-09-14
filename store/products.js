@@ -31,7 +31,6 @@ export const mutations = {
   loadingProductsHandler (state, value) {
     state.loadingProducts = value;
   },
-  
   populateProducts (state, products) {
     state.productItems = products
   }
@@ -46,22 +45,27 @@ export const getters = {
 export const actions = {
   async getProducts ({ commit }) {
     commit('loadingProductsHandler', true)
-    const { data: products } = await this.$axios('/products');
-    commit('populateProducts', products)
+    await this.$axios('/products')
+      .then((r) => commit('populateProducts', r.data))
+      .catch((error) => console.log(error))
     commit('loadingProductsHandler', false)
   },
   async updateProduct ({ commit, dispatch }, {id, sizes}) {
     await this.$axios.patch('/updateProduct', { id, sizes })
       .then((r) => dispatch('getProducts'))
+      .catch((error) => console.log(error))
     commit('editProductDialogHandler', false)
   },
-  async createProduct ({ commit, state }) {
-    if (state.validCreateProduct) {
-      await this.$axios.post('/products', state.productToCreate)
-      commit('createProductDialogHandler', false)
-    };
+  async createProduct ({ commit, dispatch, state }) {
+    // if (state.validCreateProduct) {
+    //   await this.$axios.post('/products', state.productToCreate)
+    //   dispatch('getProducts')
+    //   commit('createProductDialogHandler', false)
+    // };
   },
-  async deleteProduct ({ commit }, id) {
+  async deleteProduct ({ dispatch }, id) {
     await this.$axios.delete(`/products/${id}`)
+      .then(() => dispatch('getProducts'))
+      .catch((error) => console.log(error))
   }
 }

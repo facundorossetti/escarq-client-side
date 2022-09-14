@@ -9,7 +9,6 @@ export const mutations = {
   },
   addItemToChart (state, product) {
     const duplicated = state.chart.find(e => (e.id === product.id && e.size === product.size))
-    console.log(duplicated)
     if (duplicated) {
       state.chart.forEach((e) => {
         e.quantity = parseFloat(e.quantity)

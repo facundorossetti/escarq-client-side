@@ -402,23 +402,9 @@ export default {
       selectOptionToModifyProduct: 'Stock',
       singleExpand: false,
       productToCreate: {
-      type: '',
-      description: '',
-      color: '',
-      stock: {
-        size: {
-          xs: 0,
-          s: 0,
-          m: 0,
-          l: 0,
-          xl: 0
-        },
-        price: '',
-        imageurl: ''
-      }
-      },
-      productToUpdate: {
-        id: '',
+        type: '',
+        description: '',
+        color: '',
         stock: {
           size: {
             xs: 0,
@@ -426,6 +412,20 @@ export default {
             m: 0,
             l: 0,
             xl: 0
+          },
+          price: '',
+          imageurl: ''
+        }
+      },
+      productToUpdate: {
+        id: '',
+        stock: {
+          size: {
+            xs: null,
+            s: null,
+            m: null,
+            l: null,
+            xl: null
           }
         },
         price: null
@@ -460,6 +460,26 @@ export default {
   
   mounted() {
     this.getProducts();
+  },
+
+  watch: {
+    isEditDialog(val) {
+      if(!val) {
+        this.productToUpdate = {
+          id: '',
+          stock: {
+            size: {
+              xs: null,
+              s: null,
+              m: null,
+              l: null,
+              xl: null
+            }
+          },
+          price: null
+        }
+      }
+    }
   },
 
   computed: {

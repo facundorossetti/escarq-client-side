@@ -708,7 +708,7 @@ export default {
       return obj
     },
     showInConsole () {
-      console.log(this.count)
+      
     },
     async changeOrderStatus (id, status) {
       await this.$axios.patch(`/order/${id}/${status}`)

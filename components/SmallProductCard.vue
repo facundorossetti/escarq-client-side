@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     console () {
-      console.log('hola')
     }
   }
 }
