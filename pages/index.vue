@@ -3,11 +3,7 @@
     <v-container class="products-container">
       <v-row justify="center" align="center">
           <v-col v-for="product in productItems" :key="product.id" cols="12" md="4" class="ma-2">
-            <product-card 
-              :product="product" 
-              @clickOnAddToChart="addToChart" 
-              @clickOnBuy="addToChart" 
-            />
+            <product-card :product="product" />
           </v-col>
       </v-row>
     </v-container>
@@ -15,29 +11,18 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
 
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   data() {
     return {
       productItems: [],
-      working: false,
     }
   },
   async fetch() {
-    const { data:products } = await this.$axios('/products');
+    const { data:products } = await this.$axios("/products");
     this.productItems = products;
   },
-  computed: {
-    ...mapGetters(['getChartItems']),
-  },
-  methods: {
-    ...mapMutations(['addItemToChart']),
-    addToChart(product) {
-      this.addItemToChart(product)
-    },
-  }
 }
 </script>
 

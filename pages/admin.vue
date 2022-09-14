@@ -25,7 +25,7 @@
                   required
                   type="email"
                   class="rounded-lg mb-2"
-                ></v-text-field>
+                />
 
                 <v-text-field
                   v-model="password"
@@ -38,7 +38,7 @@
                   rounded
                   required
                   @click:append="showPasswordIcon = !showPasswordIcon"
-                ></v-text-field>
+                />
                 <v-btn
                   color="primary"
                   class="mt-3 rounded-lg"
@@ -60,16 +60,18 @@
     <v-container class="pt-0">
       <v-toolbar color="white" elevation="3" class="rounded-lg">
         <v-toolbar-title>Administrador</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <NuxtLink to="/">MAIN PAGE</NuxtLink>
+        <v-spacer />
+        <v-app-bar-nav-icon />
+        <v-btn @click="showInConsole">
+          MAIN PAGE
+        </v-btn>
         <template #extension>
           <v-tabs
             v-model="tab"
             fixed-tabs
             color="primary"
           >
-            <v-tabs-slider color="primary"></v-tabs-slider>
+            <v-tabs-slider color="primary" />
             <v-tab
               v-for="item in items"
               :key="item"
@@ -82,242 +84,7 @@
     </v-container>
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <v-container class="py-5">
-          <v-row justify="center" align="center">
-            <v-col cols="12" align="center">
-              <div class="d-flex flex-column">
-                <div class="d-flex mb-5">
-                  <v-spacer></v-spacer>
-                  <v-text-field
-                    v-model="searchUsers"
-                    append-icon="mdi-magnify"
-                    label="Buscar"
-                    elevation="3"
-                    hide-details
-                    dense
-                    solo
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                  ></v-text-field>
-                </div>
-                <v-dialog
-                  v-model="createProductDialog"
-                  max-width="650px"
-                  :full-screen="$vuetify.breakpoint.xsOnly"
-                >
-                  <v-card class="pa-8 rounded-lg">
-                    <v-form
-                      v-model="validCreateProduct"
-                      lazy-validation
-                    >
-                      <v-row>
-                        <v-col cols="4">
-                          <v-text-field
-                            v-model="productToCreate.id"
-                            :rules="[v => !!v || 'Requerido.']"
-                            label="ID"
-                            autofocus
-                            validate-on-blur
-                            outlined
-                            rounded
-                            required
-                            type="text"
-                            class="rounded-lg"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="8">
-                          <v-text-field
-                            v-model="productToCreate.type"
-                            :rules="[v => !!v || 'Requerido.']"
-                            label="Tipo"
-                            autofocus
-                            validate-on-blur
-                            outlined
-                            rounded
-                            required
-                            type="text"
-                            class="rounded-lg"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.description"
-                            :rules="[v => !!v || 'Requerido.']"
-                            label="Descripcion"
-                            validate-on-blur
-                            outlined
-                            rounded
-                            required
-                            type="text"
-                            class="rounded-lg"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.price"
-                            label="Precio"
-                            type="number"
-                            prefix="$"
-                            :rules="[v => !!v || 'Requerido.', v => v > 0 || 'Precio no puede ser 0.']"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.color"
-                            label="Color"
-                            type="text"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.stock.size.xs"
-                            label="Talle XS"
-                            type="number"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.stock.size.s"
-                            label="Talle S"
-                            type="number"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.stock.size.m"
-                            label="Talle M"
-                            type="number"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.stock.size.l"
-                            label="Talle L"
-                            type="number"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.stock.size.xl"
-                            label="Talle XL"
-                            type="number"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col>
-                          <v-text-field
-                            v-model="productToCreate.imageurl"
-                            label="Link de imagen del producto"
-                            type="text"
-                            :rules="[v => !!v || 'Requerido.']"
-                            class="rounded-lg"
-                            outlined
-                            rounded
-                            required
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-
-                      <div class="d-flex mt-3">
-                        <v-btn
-                          color="primary"
-                          text
-                          @click="createProductDialog = false"
-                        >
-                          Cancelar
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="primary"
-                          :loading="working"
-                          :disabled="working || !validCreateProduct"
-                          @click="createProduct"
-                        >
-                          Guardar
-                        </v-btn>
-                      </div>
-                    </v-form>
-                  </v-card>
-                </v-dialog>
-                <v-data-table
-                  :headers="productHeaders"
-                  :items="productItems"
-                  show-expanded
-                  :items-per-page="10"
-                  :search="searchUsers"
-                  fixed-header
-                  item-key="id"
-                  :loading="$fetchState.pending"
-                  class="elevation-3 rounded-lg"
-                  :single-expand="singleExpand"
-                  :expanded.sync="expanded"
-                  show-expand
-                >
-                  <template #[`item.actions`]="{ item }">
-                    <td class="text-right">
-                      <v-icon
-                        small
-                        @click="deleteProduct(item.id)"
-                      >
-                        mdi-delete
-                      </v-icon>
-                    </td>
-                  </template>
-                  <template #expanded-item="{ headers, item }">
-                    <td :colspan="headers.length" class="text-center">
-                      <div class="d-flex align-center justify-space-around full-widt">
-                        <p class="ma-0 font-weight-medium">STOCK:</p>
-                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.xs < 1 ? 'red--text' : 'green--text']">XS: {{ item.stock.size.xs }}</p>
-                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.s < 1 ? 'red--text' : 'green--text']">S: {{ item.stock.size.s }}</p>
-                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.m < 1 ? 'red--text' : 'green--text']">M: {{ item.stock.size.m }}</p>
-                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.l < 1 ? 'red--text' : 'green--text']">L: {{ item.stock.size.l }}</p>
-                        <p class="ma-0 font-weight-medium" :class="[item.stock.size.xl < 1 ? 'red--text' : 'green--text']">XL: {{ item.stock.size.xl }}</p>
-                        <p class="ma-0"></p>
-                      </div>
-                    </td>
-                  </template>
-                </v-data-table>
-                <v-btn
-                  color="primary"
-                  dark
-                  class="mt-4 rounded-lg flex-grow-0 flex-shrink-0"
-                  elevation="3"
-                  @click="createProductDialog = true"
-                >
-                  Añadir Producto
-                </v-btn>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
+        <admin-tab-products />
       </v-tab-item>
 
       <v-tab-item>
@@ -335,7 +102,7 @@
                   >
                     Crear usuario
                   </v-btn>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-text-field
                     v-model="searchUsers"
                     append-icon="mdi-magnify"
@@ -345,7 +112,7 @@
                     dense
                     solo
                     class="rounded-lg flex-grow-0 flex-shrink-0"
-                  ></v-text-field>
+                  />
                 </div>
                 <v-dialog
                   v-model="createUserDialog"
@@ -367,7 +134,7 @@
                         required
                         type="text"
                         class="rounded-lg mb-2"
-                      ></v-text-field>
+                      />
                       <v-text-field
                         v-model="userToCreate.email"
                         :rules="[
@@ -381,7 +148,7 @@
                         required
                         type="email"
                         class="rounded-lg mb-2"
-                      ></v-text-field>
+                      />
                       <v-text-field
                         v-model="userToCreate.password"
                         label="Contraseña"
@@ -392,7 +159,7 @@
                         outlined
                         rounded
                         required
-                      ></v-text-field>
+                      />
                       <div class="d-flex mt-3">
                         <v-btn
                           color="primary"
@@ -401,7 +168,7 @@
                         >
                           Cancelar
                         </v-btn>
-                        <v-spacer></v-spacer>
+                        <v-spacer />
                         <v-btn
                           color="primary"
                           :loading="working"
@@ -455,7 +222,7 @@
                   >
                     Modificar estado
                   </v-btn>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-text-field
                     v-model="searchOrders"
                     append-icon="mdi-magnify"
@@ -465,7 +232,7 @@
                     dense
                     solo
                     class="rounded-lg flex-grow-0 flex-shrink-0"
-                  ></v-text-field>
+                  />
                 </div>
                 <v-dialog
                   v-model="modifyOrderStatusDialog"
@@ -483,7 +250,7 @@
                       rounded
                       required
                       class="rounded-lg mb-2"
-                    ></v-select>
+                    />
                     <v-select
                       v-model="selectStatusOrdersToUpdate"
                       :items="orderStatuses"
@@ -493,7 +260,7 @@
                       rounded
                       required
                       class="rounded-lg mb-2"
-                    ></v-select>
+                    />
                     <div class="d-flex mt-3">
                       <v-btn
                         color="primary"
@@ -502,7 +269,7 @@
                       >
                         Cancelar
                       </v-btn>
-                      <v-spacer></v-spacer>
+                      <v-spacer />
                       <v-btn
                         color="primary"
                         :loading="working"
@@ -524,8 +291,10 @@
                       >
                         <div class="d-flex align-start justify-space-between">
                           <div>
-                            <h2>Orden numero: {{orderModalItems.id}}</h2>
-                            <h3 class="mb-5">Estado de entrega: {{orderModalItems.status}}</h3>
+                            <h2>Orden numero: {{ orderModalItems.id }}</h2>
+                            <h3 class="mb-5">
+                              Estado de entrega: {{ orderModalItems.status }}
+                            </h3>
                           </div>
                           <div>
                             <v-btn icon color="primary" @click="orderModal = false">
@@ -538,13 +307,13 @@
                           :key="i"
                         >
                           <v-list-item-icon>
-                            <v-img :src="orderItem.picture_url" :width="100" :height="100" contain></v-img>
+                            <v-img :src="orderItem.picture_url" :width="100" :height="100" contain />
                           </v-list-item-icon>
                           <v-list-item-content>
-                            <v-list-item-title>Descripcion: {{orderItem.title}}</v-list-item-title>
-                            <v-list-item-title>Talle: {{orderItem.description}}</v-list-item-title>
-                            <v-list-item-title>Cantidad: {{orderItem.quantity}}</v-list-item-title>
-                            <v-list-item-title>Precio Unitario: $ {{orderItem.unit_price}}</v-list-item-title>
+                            <v-list-item-title>Descripcion: {{ orderItem.title }}</v-list-item-title>
+                            <v-list-item-title>Talle: {{ orderItem.description }}</v-list-item-title>
+                            <v-list-item-title>Cantidad: {{ orderItem.quantity }}</v-list-item-title>
+                            <v-list-item-title>Precio Unitario: $ {{ orderItem.unit_price }}</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -572,7 +341,7 @@
                   </template>
                   <template #[`item.amount`]="{ item }">
                     <td>
-                      $ {{item.amount}}
+                      $ {{ item.amount }}
                     </td>
                   </template>
                   <template #[`item.status`]="{ item }">
@@ -595,7 +364,7 @@
             <v-col cols="12" align="center">
               <div class="d-flex flex-column">
                 <div class="d-flex mb-5">
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-text-field
                     v-model="searchPayments"
                     append-icon="mdi-magnify"
@@ -605,7 +374,7 @@
                     dense
                     solo
                     class="rounded-lg flex-grow-0 flex-shrink-0"
-                  ></v-text-field>
+                  />
                 </div>
                 <v-dialog
                   v-model="paymentsDialog"
@@ -616,8 +385,10 @@
                         color="primary"
                       >
                         <div class="d-flex align-start justify-space-between">
-                          <h2 class="mb-5">Detalles del pago numero: {{ paymentDialogItems.id }}</h2>
-                          <v-spacer></v-spacer>
+                          <h2 class="mb-5">
+                            Detalles del pago numero: {{ paymentDialogItems.id }}
+                          </h2>
+                          <v-spacer />
                           <div>
                             <v-btn icon color="primary" @click="paymentsDialog = false">
                               <v-icon>mdi-close</v-icon>
@@ -626,17 +397,17 @@
                         </div>
                         <v-list-item>
                           <v-list-item-content v-if="paymentDialogItems.orderdata">
-                            <v-list-item-title>Orden de compra: {{paymentDialogItems.orderdata.id}}</v-list-item-title>
+                            <v-list-item-title>Orden de compra: {{ paymentDialogItems.orderdata.id }}</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
                           <v-list-item-content v-if="paymentDialogItems.payer">
                             <h3>Datos del cliente:</h3>
-                            <v-list-item-title>Nombre: {{paymentDialogItems.payer.first_name}}</v-list-item-title>
-                            <v-list-item-title>Apellido: {{paymentDialogItems.payer.last_name}}</v-list-item-title>
-                            <v-list-item-title>Email: {{paymentDialogItems.payer.email}}</v-list-item-title>
-                            <v-list-item-title>Telefono: {{paymentDialogItems.payer.phone.area_code}} {{paymentDialogItems.payer.phone.number}}</v-list-item-title>
-                            <v-list-item-title>DNI: {{paymentDialogItems.payer.identification.number}}</v-list-item-title>
+                            <v-list-item-title>Nombre: {{ paymentDialogItems.payer.first_name }}</v-list-item-title>
+                            <v-list-item-title>Apellido: {{ paymentDialogItems.payer.last_name }}</v-list-item-title>
+                            <v-list-item-title>Email: {{ paymentDialogItems.payer.email }}</v-list-item-title>
+                            <v-list-item-title>Telefono: {{ paymentDialogItems.payer.phone.area_code }} {{ paymentDialogItems.payer.phone.number }}</v-list-item-title>
+                            <v-list-item-title>DNI: {{ paymentDialogItems.payer.identification.number }}</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -664,7 +435,7 @@
                   </template>
                   <template #[`item.amount`]="{ item }">
                     <td>
-                      $ {{item.amount}}
+                      $ {{ item.amount }}
                     </td>
                   </template>
                   <template #[`item.detail`]="{ item }">
@@ -689,13 +460,15 @@
 export default {
   name: 'AdminPage',
   layout: 'user',
-  data() {
+  data () {
     return {
       selectOrderToUpdateStatus: null,
       selectStatusOrdersToUpdate: null,
       orderStatuses: ['Pendiente', 'Entregado'],
       ordersListSelection: 1,
       expanded: [],
+      selectedProducts: [],
+      selectOptionToModifyProduct: 'Stock',
       singleExpand: false,
       email: '',
       password: '',
@@ -703,10 +476,12 @@ export default {
       valid: false,
       validCreateUser: false,
       validCreateProduct: false,
+      validUpdateProduct: false,
       working: false,
       createUserDialog: false,
       createProductDialog: false,
       modifyOrderStatusDialog: false,
+      editProductDialog: false,
       paymentsDialog: false,
       searchUsers: '',
       searchOrders: '',
@@ -715,7 +490,7 @@ export default {
       logged: true,
       rules: {
         required: value => !!value || 'Requerido.',
-        min: v => v.length >= 8 || 'Minimo 8 caracteres',
+        min: v => v.length >= 8 || 'Minimo 8 caracteres'
         // emailMatch: (v) => v === "hola@hola.com" || 'No existe ningun usuario con ese correo',
       },
       userHeaders: [
@@ -730,8 +505,8 @@ export default {
           value: 'name',
           class: 'table-header-custom'
         },
-        { text: 'Email', value: 'email', class: 'table-header-custom'},
-        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom'},
+        { text: 'Email', value: 'email', class: 'table-header-custom' },
+        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
 
       ],
       userItems: [],
@@ -740,37 +515,37 @@ export default {
           text: 'ID',
           align: 'start',
           value: 'id',
-          class: 'table-header-custom',
+          class: 'table-header-custom'
         },
         {
           text: 'Tipo',
           value: 'type',
-          class: 'table-header-custom',
+          class: 'table-header-custom'
         },
         {
           text: 'Descripcion',
           value: 'description',
-          class: 'table-header-custom',
+          class: 'table-header-custom'
         },
         {
           text: 'Color',
           value: 'color',
-          class: 'table-header-custom',
+          class: 'table-header-custom'
         },
         { text: 'Precio', value: 'price', class: 'table-header-custom' },
-        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom'},
+        { text: 'Editar/Eliminar', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
       ],
       productItems: [],
       userToCreate: {
         name: '',
         email: '',
-        password: '',
+        password: ''
       },
-      productToCreate: { 
-        type: '', 
-        description: '', 
-        color: '', 
-        stock:  {
+      productToCreate: {
+        type: '',
+        description: '',
+        color: '',
+        stock: {
           size: {
             xs: 0,
             s: 0,
@@ -778,9 +553,22 @@ export default {
             l: 0,
             xl: 0
           },
-        price: '',
-        imageurl: ''
+          price: '',
+          imageurl: ''
+        }
+      },
+      productToUpdate: {
+        id: '',
+        stock: {
+          size: {
+            xs: 0,
+            s: 0,
+            m: 0,
+            l: 0,
+            xl: 0
+          }
         },
+        price: null
       },
       tab: null,
       items: [
@@ -814,7 +602,7 @@ export default {
           value: 'paymentStatus',
           class: 'table-header-custom'
         },
-        { text: 'Ver órden', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom'},
+        { text: 'Ver órden', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
       ],
       orders: [],
       orderModalItems: [],
@@ -852,102 +640,142 @@ export default {
           value: 'orderdata.id',
           class: 'table-header-custom'
         },
-        { text: 'Ver Datos del Cliente', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom'},
-      ],
+        { text: 'Ver Datos del Cliente', value: 'actions', align: 'right', sortable: false, class: 'table-header-custom' }
+      ]
     }
   },
-  async fetch() {
-    const { data:users } = await this.$axios('/users');
-    const { data:products } = await this.$axios('/products');
-    const { data:orders } = await this.$axios('/orders');
-    const { data:payments } = await this.$axios('/payments');
-    this.payments = payments;
+  async fetch () {
+    const { data: users } = await this.$axios('/users')
+    const { data: products } = await this.$axios('/products')
+    const { data: orders } = await this.$axios('/orders')
+    const { data: payments } = await this.$axios('/payments')
+    this.payments = payments
     this.orders = orders.map((order) => {
       const isPaymentStatus = this.payments.find((payment) => {
-        return payment.orderdata.id === order.id;
-      }); 
+        return payment.orderdata.id === order.id
+      })
       if (isPaymentStatus) {
-        order.paymentStatus = isPaymentStatus.detail;
+        order.paymentStatus = isPaymentStatus.detail
       } else {
-        order.paymentStatus = 'NO INFO';
+        order.paymentStatus = 'NO INFO'
       }
-      return order;
+      return order
     })
-    this.userItems = users;
-    this.productItems = products;
+    this.userItems = users
+    this.productItems = products
   },
   computed: {
-    ordersId() {
-      return this.orders.map(order => order.id);
+    ordersId () {
+      return this.orders.map(order => order.id)
     },
+    selectedProductsIds () {
+      return this.selectedProducts.map(product => product.id)
+    }
   },
   methods: {
-    async changeOrderStatus(id, status) {
-      await this.$axios.patch(`/order/${id}/${status}`);
-    },
-    prepareOrderForChangeStatus() {
-      this.working = true;
-      this.orders.forEach(order => {
-        this.selectOrderToUpdateStatus.forEach(id => {
-          if(order.id === id) {
-            this.changeOrderStatus(order.id, this.selectStatusOrdersToUpdate);
-            this.$fetch();
-          };
-        });
-      });
-      this.selectOrderToUpdateStatus = null;
-      this.selectStatusOrdersToUpdate = null;
-      this.modifyOrderStatusDialog = false;
-      this.working = false;
-    },
-    login() {
-      if (this.valid) {
-        this.logged = true;
+    async updateProduct (id, sizes) {
+      await this.$axios.patch('/updateProduct', { id, sizes })
+        .then((res) => {
+          this.$fetch()
+        })
+      this.working = false
+      this.editProductDialog = false
+      this.productToUpdate.stock.size = {
+        xs: 0,
+        s: 0,
+        m: 0,
+        l: 0,
+        xl: 0
       }
     },
-    async createUser() {
-      if( this.validCreateUser ) {
-        this.working = true;
+    createProductToUpdate () {
+      this.working = true
+      const sizes = this.cleanObject(this.productToUpdate.stock.size)
+      this.selectedProductsIds.forEach((id) => {
+        this.updateProduct(id, sizes)
+      })
+    },
+
+    // Clean object from null values and convert string to number
+    cleanObject (obj) {
+      for (const propName in obj) {
+        if (!obj[propName]) {
+          delete obj[propName]
+        } else {
+          obj[propName] = parseFloat(obj[propName])
+        }
+      }
+      return obj
+    },
+    showInConsole () {
+      console.log(this.count)
+    },
+    async changeOrderStatus (id, status) {
+      await this.$axios.patch(`/order/${id}/${status}`)
+    },
+    prepareOrderForChangeStatus () {
+      this.working = true
+      this.orders.forEach((order) => {
+        this.selectOrderToUpdateStatus.forEach((id) => {
+          if (order.id === id) {
+            this.changeOrderStatus(order.id, this.selectStatusOrdersToUpdate)
+            this.$fetch()
+          };
+        })
+      })
+      this.selectOrderToUpdateStatus = null
+      this.selectStatusOrdersToUpdate = null
+      this.modifyOrderStatusDialog = false
+      this.working = false
+    },
+    login () {
+      if (this.valid) {
+        this.logged = true
+      }
+    },
+    async createUser () {
+      if (this.validCreateUser) {
+        this.working = true
         await this.$axios.post('/users', this.userToCreate)
-          .then( res => {
-            this.$fetch();
-            this.createUserDialog = false;
+          .then((res) => {
+            this.$fetch()
+            this.createUserDialog = false
           })
-        this.working = false;
+        this.working = false
       };
     },
-    async deleteUser(id) {
+    async deleteUser (id) {
       await this.$axios.delete(`/users/${id}`)
-        .then( res => {
-          this.$fetch();
-        });
+        .then((res) => {
+          this.$fetch()
+        })
     },
-    async deleteProduct(id) {
+    async deleteProduct (id) {
       await this.$axios.delete(`/products/${id}`)
-        .then( res => {
-          this.$fetch();
-        });
+        .then((res) => {
+          this.$fetch()
+        })
     },
-    async createProduct() {
-      if( this.validCreateProduct ) {
-        this.working = true;
+    async createProduct () {
+      if (this.validCreateProduct) {
+        this.working = true
         await this.$axios.post('/products', this.productToCreate)
-          .then( res => {
-            this.$fetch();
-            this.createProductDialog = false;
+          .then((res) => {
+            this.$fetch()
+            this.createProductDialog = false
           })
-        this.working = false;
+        this.working = false
       };
     },
-    openOrderModal(order) {
-      this.orderModalItems = order;
-      this.orderModal = true;
+    openOrderModal (order) {
+      this.orderModalItems = order
+      this.orderModal = true
     },
-    openPaymentsDialog(payment) {
-      this.paymentDialogItems = payment;
-      this.paymentsDialog = true;
-    },
-  },
+    openPaymentsDialog (payment) {
+      this.paymentDialogItems = payment
+      this.paymentsDialog = true
+    }
+  }
 }
 </script>
 

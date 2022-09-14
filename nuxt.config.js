@@ -5,14 +5,14 @@ export default {
     titleTemplate: '%s - escarq',
     title: 'escarq',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
-    ],
+      { name: 'format-detection', content: 'telephone=no' }
+    ]
   },
 
   css: [],
@@ -21,11 +21,7 @@ export default {
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ['@nuxtjs/vuetify'],
 
   modules: ['@nuxtjs/axios'],
 
@@ -40,14 +36,14 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-      },
-    },
+          success: colors.green.accent3
+        }
+      }
+    }
   },
 
   axios: {
-    baseURL: process.env.API_BASE_URL || 'http://localhost:3001',
+    baseURL: process.env.API_BASE_URL || 'http://localhost:3001'
   },
 
   publicRuntimeConfig: {
@@ -62,5 +58,5 @@ export default {
     }
   },
 
-  build: {},
+  build: {}
 }

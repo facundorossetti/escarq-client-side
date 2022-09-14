@@ -13,7 +13,9 @@
         />
         <div class="d-flex flex-column align-center justify-center">
           <h3>{{ product.description }}</h3>
-          <h4 class="my-2 text-uppercase">Talle: {{ product.size }}</h4>
+          <h4 class="my-2 text-uppercase">
+            Talle: {{ product.size }}
+          </h4>
           <div class="d-flex align-center">
             <h3>${{ product.price }} x {{ product.quantity }} </h3>
             <v-btn class="ml-8" color="primary" icon @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
@@ -36,18 +38,18 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       quantity: 1,
-      sizes: ['xs', 's', 'm', 'l', 'xl'],
-    };
+      sizes: ['xs', 's', 'm', 'l', 'xl']
+    }
   },
   methods: {
-    console() {
-      console.log('hola');
+    console () {
+      console.log('hola')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
