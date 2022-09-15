@@ -1,27 +1,24 @@
 <template>
   <div class="TheHero">
     <v-container>
-      <v-row justify="space-between" align="center">
+      <v-row justify="space-between" align="start">
         <v-col cols="4" align="start"> 
-          <NuxtLink to="/admin">ADMIN</NuxtLink>
-        </v-col>
-        <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4" align="center" class="navigation-menu d-flex">
-          <NuxtLink to="/">Buzos</NuxtLink>
-          <NuxtLink to="/">Remeras</NuxtLink>
-          <NuxtLink to="/">Joggers</NuxtLink>
-          <NuxtLink to="/">Shorts</NuxtLink>
-          <NuxtLink to="/">Accesorios</NuxtLink>
+          <img src="../static/logo.png" width="100px" height="60px" />
         </v-col>
         <v-col cols="4" align="end">
           <v-badge
+            v-if="getTotalItems"
             color="pink"
             :content="getTotalItems"
             overlap
           >
-          <v-btn color="primary" small fab @click="chartModalHandler(true)">
+            <v-btn color="primary" small fab @click="chartModalHandler(true)">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
           </v-badge>
+          <v-btn v-else color="primary" small fab @click="chartModalHandler(true)">
+            <v-icon>mdi-cart</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
