@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <v-container class="products-container">
-      <v-row justify="center" align="center">
-          <v-col v-for="product in productItems" :key="product.id" cols="12" md="4" class="ma-2">
-            <product-card :product="product" />
-          </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container class="products-container" fluid>
+    <v-row justify="center" align="center" class="mx-2">
+        <v-col v-for="product in productItems" :key="product.id" cols="12" md="4" lg="3" class="my-5">
+          <product-card :product="product" />
+        </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

@@ -448,7 +448,6 @@ export default {
   async fetch () {
     const { data: orders } = await this.$axios('/orders')
     const { data: payments } = await this.$axios('/payments')
-    this.payments = payments
     this.orders = orders.map((order) => {
       const isPaymentStatus = this.payments.find((payment) => {
         return payment.orderdata.id === order.id
@@ -460,7 +459,7 @@ export default {
       }
       return order
     })
-    console.log(orders);
+    this.payments = payments;
   },
   computed: {
     ordersId () {

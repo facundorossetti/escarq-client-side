@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card class="rounded-lg transition-swing px-3 py-4" :elevation="hover ? 8 : 2">
+    <v-card class="product-card rounded-lg transition-swing px-3 py-4" :elevation="hover ? 8 : 2">
       <div class="d-flex flex-column align-center justify-space-between">
         <v-img
           v-if="product.imageurl !== ''"
@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-card {
+  min-width: 280px;
+  max-width: 400px;
+}
 .scale-image {
   transform: scale(1.1);
 }
