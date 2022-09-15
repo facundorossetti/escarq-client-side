@@ -1,9 +1,9 @@
 <template>
   <v-container class="products-container" fluid>
     <v-row justify="center" align="center" class="mx-2">
-        <v-col v-for="product in productItems" :key="product.id" cols="12" sm="6" md="4" lg="3" class="my-5">
-          <product-card :product="product" />
-        </v-col>
+      <v-col v-for="product in productItems" :key="product.id" cols="12" sm="6" md="4" lg="3" class="my-5">
+        <product-card :product="product" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
