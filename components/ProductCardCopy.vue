@@ -1,7 +1,7 @@
 <template>
-  <v-card class="product-card d-flex flex-column align-center justify-space-between rounded-lg pb-4">
+  <v-card class="product-card d-flex flex-column align-center justify-space-between rounded-xl pb-4">
     <div class="d-flex align-center justify-space-between">
-      <h3 class="description primary--text mr-10">${{ product.price }}</h3>
+      <h3 class="description primary--text mr-6">${{ product.price }}</h3>
       <h3 class="description primary--text">{{ product.description }}</h3>
     </div>
     <div class="information d-flex flex-column align-center justify-center">

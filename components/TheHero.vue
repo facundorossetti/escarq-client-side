@@ -21,13 +21,13 @@
           </v-btn>
         </v-col>
       </v-row>
-      <client-only v-if="productItems.length">
+      <!-- <client-only v-if="productItems.length">
         <VueSlickCarousel v-bind="settings">
           <v-col v-for="product in productItems" :key="product.id" >
             <img :src="product.imageurl" width="350px" height="350px" class="pointer-none" />
           </v-col>
         </VueSlickCarousel>
-      </client-only>
+      </client-only> -->
     </v-container>
     <v-custom-side-menu></v-custom-side-menu>
   </div>
@@ -74,6 +74,10 @@ export default {
   pointer-events: none;
 }
 .TheHero {
+  background-image: url(../static/banner_1.webp);
+  background-size: cover;
+  background-position: 5% 38%;
+  height: 600px;
   .navigation-menu {
     gap: 20px;
     a {
