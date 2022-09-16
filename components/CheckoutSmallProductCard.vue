@@ -1,24 +1,22 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card class="rounded-lg transition-swing py-2" :elevation="hover ? 8 : 2">
-      <div class="d-flex align-center justify-space-around">
+    <v-card class="rounded-lg transition-swing py-2 px-4" :elevation="hover ? 8 : 2">
+      <div class="d-flex align-center justify-space-between">
         <img
           v-if="product.imageurl !== ''"
           :src="product.imageurl"
-          :width="150"
-          :height="150"
+          :width="50"
+          :height="50"
           class="transition-swing"
           :class="{'scale-image': hover}"
         />
         <div class="d-flex flex-column align-center justify-center">
-          <h3 class="mb-4">{{ product.description }}</h3>
-          <div class="d-flex align-center">
-            <h3>${{ product.price }} x {{ product.quantity }} </h3>
-            <v-btn class="ml-5" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </div>
+          <h3>{{ product.description }}</h3>
+          <h3>$ {{ product.price }} x {{ product.quantity }}</h3>
         </div>
+        <v-btn color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
       </div>
     </v-card>
   </v-hover>

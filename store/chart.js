@@ -1,11 +1,19 @@
 export const state = () => ({
   chart: [],
-  chartModal: false
+  chartModal: false,
+  checkoutValidation: false,
+  checkoutModal: false
 })
 
 export const mutations = {
   chartModalHandler (state, value) {
     state.chartModal = value
+  },
+  checkoutModalHandler (state, value) {
+    state.checkoutModal = value
+  },
+  checkoutValidationHandler (state, value) {
+    state.checkoutValidation = value
   },
   addItemToChart (state, product) {
     const duplicated = state.chart.find(e => (e.id === product.id && e.size === product.size))
@@ -46,20 +54,22 @@ export const getters = {
 }
 
 export const actions = {
-  async buyChartItems ({ state }) {
-    const items = state.chart.map((e) => {
-      return {
-        id: e.id,
-        title: e.description,
-        description: e.size,
-        picture_url: e.imageurl,
-        quantity: e.quantity,
-        unit_price: parseFloat(e.price)
-      }
-    })
-    const { data } = await this.$axios.post('/mercadopago', items)
-    if (data.body.init_point) {
-      window.location.href = data.body.init_point
-    };
+  async buyChartItems ({ state }, payerInfo) {
+    if(state.checkoutValidation) {
+      const items = state.chart.map((e) => {
+        return {
+          id: e.id,
+          title: e.description,
+          description: e.size,
+          picture_url: e.imageurl,
+          quantity: e.quantity,
+          unit_price: parseFloat(e.price)
+        }
+      })
+      const { data } = await this.$axios.post('/mercadopago', { items, payerInfo})
+      if (data.body.init_point) {
+        window.location.href = data.body.init_point
+      };
+    }
   }
 }

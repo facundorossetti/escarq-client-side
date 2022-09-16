@@ -9,7 +9,7 @@
     <v-container v-if="chart.length" class="px-4 pt-6">
       <v-row align="center" justify="center" class="mb-4">
         <v-col cols="12" align="center">
-          <v-btn fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <h2>Carrito de compras</h2>
@@ -30,14 +30,14 @@
           <h3>$ {{ getTotalPrice }}</h3>
         </v-col>
         <v-col cols="12" align="center">
-          <v-btn color="primary" block :loading="working" @click="buyChartItems">Comprar</v-btn>
+          <v-btn color="primary" block :loading="working" @click="checkoutModalHandler(true), chartModalHandler(false)">Finalizar Compra</v-btn>
         </v-col>
       </v-row>
     </v-container>
     <v-container v-else class="px-4 pt-6">
       <v-row align="center" justify="center">
         <v-col cols="12" align="center">
-          <v-btn fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <h2>Carrito de compras</h2>
@@ -72,7 +72,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("chart", ["chartModalHandler", "removeItemFromChart"]),
+    ...mapMutations("chart", ["chartModalHandler", "removeItemFromChart", "checkoutModalHandler"]),
     ...mapActions("chart", ["buyChartItems"]),
   },
 };

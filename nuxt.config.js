@@ -17,7 +17,7 @@ export default {
 
   css: [],
 
-  plugins: [],
+  plugins: ['~/plugins/helpers.js'],
 
   components: true,
 
