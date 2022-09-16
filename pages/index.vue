@@ -186,7 +186,7 @@
           <v-btn
             color="primary"
             :disabled="!checkoutValidation && !!chart.length"
-            @click="validateForm('checkoutForm'), buyChartItems(payerInfo)"
+            @click="validateForm('checkoutForm')"
           >
             Pagar
           </v-btn>
@@ -250,7 +250,9 @@ export default {
     ...mapActions('chart', ['buyChartItems']),
     ...mapActions('products', ['getProducts']),
     validateForm(form) {
-      this.$validate(form, this);
+      if (this.$validate(form, this)) {
+        this.buyChartItems(this.payerInfo);
+      }
     }
   }
 }
