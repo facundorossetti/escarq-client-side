@@ -16,7 +16,7 @@
         <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-8" color="primary" @click="checkoutModalHandler(false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-row align="center" class="mt-6">
+        <v-row align="center" :class="{'mt-6': $vuetify.breakpoint.xsOnly}">
           <v-col v-for="(product, index) in chart" :key="index" cols="12" align="center">
             <checkout-small-product-card :product="product" @clickOnDelete="removeItemFromChart(product)"></checkout-small-product-card>
           </v-col>
@@ -264,7 +264,7 @@ export default {
   border: 1px solid #303030;
 }
 @media screen and (max-width: 600px) {
-  .col-12 {
+  .col-12, .col-3, .col-5, .col-7, .col-4 {
     padding-right: 4px !important;
     padding-left: 4px !important;
   }
