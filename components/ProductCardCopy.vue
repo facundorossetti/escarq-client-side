@@ -1,5 +1,5 @@
 <template>
-  <v-card class="product-card d-flex flex-column align-center justify-space-between rounded-lg">
+  <v-card class="product-card d-flex flex-column align-center justify-space-between rounded-lg pb-4">
     <div class="d-flex align-center justify-space-between">
       <h3 class="description primary--text mr-10">${{ product.price }}</h3>
       <h3 class="description primary--text">{{ product.description }}</h3>
@@ -10,11 +10,14 @@
           {{ size }}
         </v-btn>
       </v-btn-toggle>
-      <div class="d-flex align-center my-2">
+      <div class="d-flex align-center my-4">
+        <v-btn :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]" color="primary" fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
+          <v-icon >mdi-cart</v-icon>
+        </v-btn>
         <v-text-field
           v-model="quantity"
           :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]"
-          class="quantity-field-selector mr-4"
+          class="quantity-field-selector ml-4"
           outlined
           hide-details
           rounded
@@ -24,9 +27,6 @@
           type="number"
           dense
         />
-        <v-btn :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]" color="primary" fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
-          <v-icon>mdi-cart</v-icon>
-        </v-btn>
       </div>
     </div>
   </v-card>
@@ -59,30 +59,32 @@ export default {
 
 <style lang="scss" scoped>
 .product-card {
+  cursor: grab;
   min-width: 250px;
   max-width: 300px;
-  min-height: 328px;
+  min-height: 380px;
   background-image: url(../static/card-image2.jpeg);
-  background-size: contain;
+  background-size: cover;
   background-position: top;
-  transition: all 0.6s ease;
-  .description {
-    transition: all 0.6s ease;
-    opacity: 0;
-  }
+  transition: all .4s ease;
   .information {
-    transition: all 0.6s ease;
+    opacity: 0;
+    transition: all .4s ease;
+    color: white;
+    transform: translate(0, 125px);
+  }
+  .description {
+    transition: all .4s ease;
     opacity: 0;
   }
   &:hover {
     box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.4);
-    transform: scale(1.05);
-    min-height: 412px;
-    .description {
-      transform: translateY(-30px);
+    min-height: 330px;
+    .information {
       opacity: 1;
     }
-    .information {
+    .description {
+      transform: translateY(-40px);
       opacity: 1;
     }
   }

@@ -28,7 +28,6 @@
           </v-col>
         </VueSlickCarousel>
       </client-only>
-      <div class="slider-cover"></div>
     </v-container>
     <v-custom-side-menu></v-custom-side-menu>
   </div>
@@ -57,10 +56,6 @@ export default {
         "focusOnSelect": true,
         "infinite": true,
         "slidesToShow": 3,
-        "autoplay": true,
-        "speed": 2000,
-        "autoplaySpeed": 1200,
-        "cssEase": "linear",
         "speed": 1000
       }
     };
