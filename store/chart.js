@@ -13,7 +13,7 @@ export const mutations = {
       state.chart.forEach((e) => {
         e.quantity = parseFloat(e.quantity)
         if (e.id === duplicated.id && e.size === duplicated.size) {
-          e.quantity = e.quantity + parseFloat(duplicated.quantity)
+          e.quantity++;
         }
       })
     } else {

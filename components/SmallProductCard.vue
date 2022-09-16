@@ -12,13 +12,10 @@
           :class="{'scale-image': hover}"
         />
         <div class="d-flex flex-column align-center justify-center">
-          <h3>{{ product.description }}</h3>
-          <h4 class="my-2 text-uppercase">
-            Talle: {{ product.size }}
-          </h4>
+          <h3 class="mb-4">{{ product.description }}</h3>
           <div class="d-flex align-center">
             <h3>${{ product.price }} x {{ product.quantity }} </h3>
-            <v-btn class="ml-8" color="primary" icon @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
+            <v-btn class="ml-5" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </div>

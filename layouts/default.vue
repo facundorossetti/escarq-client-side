@@ -1,12 +1,9 @@
 <template>
   <v-app>
-    <v-lazy transition="fade-transition" >
-      <v-main>
-        <TheAdvisor></TheAdvisor>
-        <TheHero></TheHero>
-        <Nuxt />
-      </v-main>
-    </v-lazy>
+    <v-main class="overflow-hidden" id="scrolling-techniques-8">
+      <v-custom-side-menu></v-custom-side-menu>
+      <Nuxt />
+    </v-main>
   </v-app>
 </template>
 
