@@ -1,31 +1,14 @@
 <template>
-  <v-card class="product-card d-flex flex-column align-center justify-space-between rounded-xl">
-    <div class="d-flex align-center justify-space-between">
-      <h3 class="description primary--text mr-10">${{ product.price }}</h3>
-      <h3 class="description primary--text">{{ product.description }}</h3>
-    </div>
-    <div class="information d-flex flex-column align-center justify-center">
-      <v-btn-toggle v-model="sizeSelector" mandatory color="primary">
-        <v-btn v-for="size in sizes" :key="size" x-small text :disabled="product.stock.size[size] < 1">
-          {{ size }}
-        </v-btn>
-      </v-btn-toggle>
-      <div class="d-flex align-center my-2">
-        <v-text-field
-          v-model="quantity"
-          :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]"
-          class="quantity-field-selector mr-4"
-          outlined
-          hide-details
-          rounded
-          :max="product.stock.size[sizes[sizeSelector]]"
-          :min="1"
-          color="primary"
-          type="number"
-          dense
-        />
-        <v-btn :disabled="product.stock.size[sizes[sizeSelector]] < 1 || !sizes[sizeSelector]" color="primary" fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
-          <v-icon>mdi-cart</v-icon>
+  <v-card class="product-card d-flex flex-column align-center justify-end rounded-xl">
+    <img :src="product.imageurl" width="100%" height="100%" alt="">
+    <div class="d-flex align-center justify-center my-2 w-100 px-2">
+      <div class="d-flex flex-column align-center justify-space-around w-100">
+        <h3 class="description secondary--text">{{ product.description }}</h3>
+        <h3 class="price secondary--text">${{ product.price }}</h3>
+      </div>
+      <div class="add-cart-button">
+        <v-btn color="secondary" depressed fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, size: sizes[sizeSelector], imageurl: product.imageurl})">
+          <v-icon color="#000000">mdi-cart</v-icon>
         </v-btn>
       </div>
     </div>
@@ -48,11 +31,14 @@ export default {
     return {
       quantity: 1,
       sizeSelector: undefined,
-      sizes: ['xs', 's', 'm', 'l', 'xl'],
+      sizes: ['l'],
     };
   },
   methods: {
     ...mapMutations("chart", ["addItemToChart"]),
+    console() {
+      console.log(this.product);
+    }
   }
 };
 </script>
@@ -60,37 +46,42 @@ export default {
 <style lang="scss" scoped>
 .product-card {
   min-width: 250px;
-  max-width: 300px;
-  min-height: 328px;
-  background-image: url(../static/card-image2.jpeg);
-  background-size: contain;
-  background-position: top;
+  max-width: 320px;
+  min-height: 385px;
+  background-color: #000000;  
+  box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
   transition: all 0.6s ease;
-  .description {
-    transition: all 0.6s ease;
-    opacity: 0;
-  }
-  .information {
-    transition: all 0.6s ease;
-    opacity: 0;
-  }
-  &:hover {
-    box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.4);
-    transform: scale(1.05);
-    min-height: 412px;
     .description {
-      transform: translateY(-30px);
-      opacity: 1;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+      font-family: 'GothicUltraTrendy';
+      font-size: 32px;
     }
-    .information {
+    .price {
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+  &:hover {
+    box-shadow: 0px 0px 20px 4px rgba(255, 255, 255, 0.45) !important;
+    transform: scale(1.05);
+    .description {
+      transform: translateY(5px);
+    }
+    .price {
       opacity: 1;
+      transform: translateY(-5px);
     }
   }
 }
-.scale-image {
-  transform: scale(1.1);
+@media screen and (max-width: 600px) {
+  .product-card {
+    max-width: 100%;
+  }
 }
-.quantity-field-selector {
-  width: 65px;
+.add-cart-button {
+  flex-basis: 40%;
+}
+.w-100 {
+  width: 100%;
 }
 </style>
