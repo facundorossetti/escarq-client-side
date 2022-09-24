@@ -1,27 +1,22 @@
 <template>
-  <v-hover v-slot="{ hover }">
-    <v-card class="rounded-lg transition-swing py-2" :elevation="hover ? 8 : 2">
-      <div class="d-flex align-center justify-space-around">
-        <img
-          v-if="product.imageurl !== ''"
-          :src="product.imageurl"
-          :width="150"
-          :height="150"
-          class="transition-swing"
-          :class="{'scale-image': hover}"
-        />
-        <div class="d-flex flex-column align-center justify-center">
-          <h3 class="mb-4">{{ product.description }}</h3>
-          <div class="d-flex align-center">
-            <h3>${{ product.price }} x {{ product.quantity }} </h3>
-            <v-btn class="ml-5" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </div>
+  <v-card class="small-product-card rounded-lg">
+    <div class="d-flex align-center justify-space-around">
+      <img
+        v-if="product.imageurl !== ''"
+        :src="product.imageurl"
+        height="120px"
+      />
+      <div class="d-flex flex-column align-center justify-center">
+        <h3 class="normal-text-light">{{ product.description }}</h3>
+        <div class="d-flex align-center">
+          <h3 class="normal-text-light">${{ product.price }} x {{ product.quantity }} </h3>
+          <v-btn class="ml-5 mb-4" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </div>
       </div>
-    </v-card>
-  </v-hover>
+    </div>
+  </v-card>
 </template>
 
 <script>
@@ -48,10 +43,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scale-image {
-  transform: scale(1.1);
-}
-.quantity-field-selector {
-  max-width: 90px;
+.small-product-card {
+  box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
+  max-height: 150px;
+  background: #000000;
 }
 </style>

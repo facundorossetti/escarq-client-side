@@ -5,14 +5,15 @@
     right
     app
     temporary
+    class="side-menu"
   >
     <v-container v-if="chart.length" class="px-4 pt-6">
       <v-row align="center" justify="center" class="mb-4">
         <v-col cols="12" align="center">
-          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
-            <v-icon>mdi-close</v-icon>
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="secondary" @click="chartModalHandler(false)">
+            <v-icon color="#000000">mdi-close</v-icon>
           </v-btn>
-          <h2>Carrito de compras</h2>
+          <h2 class="normal-text-light">Carrito de compras</h2>
         </v-col>
       </v-row>
       <div v-if="chart.length" :class="{'chart-list px-2 pt-4': chart.length > 3}">
@@ -24,10 +25,10 @@
       </div>
       <v-row align="center" justify="center" class="mt-10">
         <v-col cols="6" align="start">
-          <h3>SUBTOTAL:</h3>
+          <h3 class="normal-text-light">SUBTOTAL:</h3>
         </v-col>
         <v-col cols="6" align="end">
-          <h3>$ {{ getTotalPrice }}</h3>
+          <h3 class="normal-text-light">$ {{ getTotalPrice }}</h3>
         </v-col>
         <v-col cols="12" align="center">
           <v-btn color="primary" block :loading="working" @click="checkoutModalHandler(true), chartModalHandler(false)">Finalizar Compra</v-btn>
@@ -37,13 +38,13 @@
     <v-container v-else class="px-4 pt-6">
       <v-row align="center" justify="center">
         <v-col cols="12" align="center">
-          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="secondary" @click="chartModalHandler(false)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <h2>Carrito de compras</h2>
+          <h2 class="normal-text-light">Carrito de compras</h2>
         </v-col>
         <v-col cols="12" align="center">
-          <h2>Sin productos en el carrito.</h2>
+          <h2 class="normal-text-light">Sin productos en el carrito.</h2>
         </v-col>
       </v-row>
     </v-container>
@@ -79,6 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.side-menu {
+  background-color: #000000;
+}
 .chart-list {
   max-height: 560px;
   overflow-y: scroll;

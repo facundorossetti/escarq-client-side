@@ -55,11 +55,15 @@ export default {
       transform: translateY(20px);
       transition: all 0.6s ease;
       font-family: 'GothicUltraTrendy';
+      letter-spacing: 2px;
       font-size: 32px;
     }
     .price {
       opacity: 0;
       transition: all 0.6s ease;
+      letter-spacing: 3px;
+      font-family: 'GothicUltraTrendy';
+      font-size: 32px;
     }
   &:hover {
     box-shadow: 0px 0px 20px 4px rgba(255, 255, 255, 0.45) !important;
