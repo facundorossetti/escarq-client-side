@@ -29,7 +29,7 @@
         </v-row>
       </v-container>
     </v-app-bar>
-    <div class="TheHero"></div>
+    <img src="../static/banner_2.png" width="100%"  class="TheHero" />
   </div>
 </template>
 
@@ -60,13 +60,5 @@ export default {
 <style lang="scss" scoped>
 .pointer-none {
   pointer-events: none;
-}
-.TheHero {
-  background-image: url(../static/banner_2.png);
-  background-color: black;
-  background-size: contain;
-  background-position: center;
-  min-height: 500px;
-  max-height: 700px;
 }
 </style>

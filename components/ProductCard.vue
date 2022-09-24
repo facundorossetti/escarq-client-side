@@ -76,6 +76,17 @@ export default {
 @media screen and (max-width: 600px) {
   .product-card {
     max-width: 100%;
+    &:hover {
+      box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 0.45) !important;
+      transform: scale(1.02);
+      .description {
+        transform: translateY(5px);
+      }
+      .price {
+        opacity: 1;
+        transform: translateY(-5px);
+      }
+    }
   }
 }
 .add-cart-button {
