@@ -36,9 +36,10 @@
                 lazy-validation
               >
                 <v-row>
-                  <v-col cols="4">
+                  <v-col cols="3">
                     <v-text-field
-                      v-model="productToCreate.id"
+                      v-model.number="productToCreate.id"
+                      type="number"
                       :rules="[v => !!v || 'Requerido.']"
                       label="ID"
                       autofocus
@@ -46,27 +47,22 @@
                       outlined
                       rounded
                       required
-                      type="text"
                       class="rounded-lg"
                     />
                   </v-col>
-                  <v-col cols="8">
+                  <v-col cols="9">
                     <v-text-field
-                      v-model="productToCreate.type"
+                      v-model="productToCreate.imageurl"
+                      label="Link de imagen del producto"
+                      type="text"
                       :rules="[v => !!v || 'Requerido.']"
-                      label="Tipo"
-                      autofocus
-                      validate-on-blur
+                      class="rounded-lg"
                       outlined
                       rounded
                       required
-                      type="text"
-                      class="rounded-lg"
                     />
                   </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
+                  <v-col cols="5">
                     <v-text-field
                       v-model="productToCreate.description"
                       :rules="[v => !!v || 'Requerido.']"
@@ -79,14 +75,11 @@
                       class="rounded-lg"
                     />
                   </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
+                  <v-col cols="3">
                     <v-text-field
-                      v-model="productToCreate.price"
-                      label="Precio"
+                      v-model.number="productToCreate.stock"
+                      label="Stock"
                       type="number"
-                      prefix="$"
                       :rules="[v => !!v || 'Requerido.', v => v > 0 || 'Precio no puede ser 0.']"
                       class="rounded-lg"
                       outlined
@@ -94,76 +87,13 @@
                       required
                     />
                   </v-col>
-                  <v-col>
+                  <v-col cols="4">
                     <v-text-field
-                      v-model="productToCreate.color"
-                      label="Color"
-                      type="text"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.stock.size.xs"
-                      label="Talle XS"
+                      v-model.number="productToCreate.price"
+                      label="Precio"
                       type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.stock.size.s"
-                      label="Talle S"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.stock.size.m"
-                      label="Talle M"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.stock.size.l"
-                      label="Talle L"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.stock.size.xl"
-                      label="Talle XL"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToCreate.imageurl"
-                      label="Link de imagen del producto"
-                      type="text"
-                      :rules="[v => !!v || 'Requerido.']"
+                      prefix="$"
+                      :rules="[v => !!v || 'Requerido.', v => v > 0 || 'Precio no puede ser 0.']"
                       class="rounded-lg"
                       outlined
                       rounded
@@ -185,7 +115,7 @@
                     color="primary"
                     :loading="loadingProducts"
                     :disabled="loadingProducts || !validCreateProduct"
-                    @click="createProductToCreate"
+                    @click="createProduct(productToCreate)"
                   >
                     Guardar
                   </v-btn>
@@ -231,65 +161,25 @@
                     </v-chip-group>
                   </v-col>
                 </v-row>
-                <v-row v-if="selectOptionToModifyProduct === 'Stock'">
-                  <v-col>
+                <v-row>
+                  <v-col v-if="selectOptionToModifyProduct === 'Precios'">
                     <v-text-field
-                      v-model="productToUpdate.stock.size.xs"
-                      label="Talle XS"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToUpdate.stock.size.s"
-                      label="Talle S"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToUpdate.stock.size.m"
-                      label="Talle M"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToUpdate.stock.size.l"
-                      label="Talle L"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToUpdate.stock.size.xl"
-                      label="Talle XL"
-                      type="number"
-                      class="rounded-lg"
-                      outlined
-                      rounded
-                    />
-                  </v-col>
-                </v-row>
-                <v-row v-else>
-                  <v-col>
-                    <v-text-field
-                      v-model="productToUpdate.price"
+                      v-model.number="productToUpdatePrice.price"
                       label="Precio"
                       type="number"
                       prefix="$"
+                      :rules="[v => !!v || 'Requerido.', v => v > 0 || 'Precio no puede ser 0.']"
+                      class="rounded-lg"
+                      outlined
+                      rounded
+                      required
+                    />
+                  </v-col>
+                  <v-col v-else>
+                    <v-text-field
+                      v-model.number="productToUpdateStock.stock"
+                      label="Stock"
+                      type="number"
                       :rules="[v => !!v || 'Requerido.', v => v > 0 || 'Precio no puede ser 0.']"
                       class="rounded-lg"
                       outlined
@@ -325,16 +215,12 @@
             :headers="productHeaders"
             :items="productItems"
             :loading="loadingProducts"
-            show-expanded
             show-select
             :items-per-page="10"
             :search="isSearchProducts"
             fixed-header
             item-key="id"
             class="elevation-3 rounded-lg"
-            :single-expand="singleExpand"
-            :expanded.sync="expanded"
-            show-expand
           >
             <template #[`item.actions`]="{ item }">
               <td class="text-right">
@@ -348,31 +234,6 @@
             <template #[`item.price`]="{ item }">
               <td>
                 <span>$ {{ item.price }}</span>
-              </td>
-            </template>
-            <template #expanded-item="{ headers, item }">
-              <td :colspan="headers.length" class="text-center">
-                <div class="d-flex align-center justify-space-around full-widt">
-                  <p class="ma-0 font-weight-medium">
-                    STOCK:
-                  </p>
-                  <p class="ma-0 font-weight-medium" :class="[item.stock.size.xs < 1 ? 'red--text' : 'green--text']">
-                    XS: {{ item.stock.size.xs }}
-                  </p>
-                  <p class="ma-0 font-weight-medium" :class="[item.stock.size.s < 1 ? 'red--text' : 'green--text']">
-                    S: {{ item.stock.size.s }}
-                  </p>
-                  <p class="ma-0 font-weight-medium" :class="[item.stock.size.m < 1 ? 'red--text' : 'green--text']">
-                    M: {{ item.stock.size.m }}
-                  </p>
-                  <p class="ma-0 font-weight-medium" :class="[item.stock.size.l < 1 ? 'red--text' : 'green--text']">
-                    L: {{ item.stock.size.l }}
-                  </p>
-                  <p class="ma-0 font-weight-medium" :class="[item.stock.size.xl < 1 ? 'red--text' : 'green--text']">
-                    XL: {{ item.stock.size.xl }}
-                  </p>
-                  <p class="ma-0" />
-                </div>
               </td>
             </template>
           </v-data-table>
@@ -400,33 +261,18 @@ export default {
       selectOptionToModifyProduct: 'Stock',
       singleExpand: false,
       productToCreate: {
-        type: '',
         description: '',
-        color: '',
-        stock: {
-          size: {
-            xs: 0,
-            s: 0,
-            m: 0,
-            l: 0,
-            xl: 0
-          }
-        },
+        stock: 1,
         price: null,
         imageurl: ''
       },
-      productToUpdate: {
+      productToUpdatePrice: {
         id: '',
-        stock: {
-          size: {
-            xs: null,
-            s: null,
-            m: null,
-            l: null,
-            xl: null
-          }
-        },
         price: null
+      },
+      productToUpdateStock: {
+        id: '',
+        stock: 1
       },
       productHeaders: [
         {
@@ -436,18 +282,13 @@ export default {
           class: 'table-header-custom'
         },
         {
-          text: 'Tipo',
-          value: 'type',
+          text: 'Cantidad stock',
+          value: 'stock',
           class: 'table-header-custom'
         },
         {
           text: 'Descripcion',
           value: 'description',
-          class: 'table-header-custom'
-        },
-        {
-          text: 'Color',
-          value: 'color',
           class: 'table-header-custom'
         },
         { text: 'Precio', value: 'price', class: 'table-header-custom' },
@@ -465,15 +306,7 @@ export default {
       if(!val) {
         this.productToUpdate = {
           id: '',
-          stock: {
-            size: {
-              xs: null,
-              s: null,
-              m: null,
-              l: null,
-              xl: null
-            }
-          },
+          stock: 1,
           price: null
         }
       }
@@ -535,36 +368,22 @@ export default {
 
   methods: {
     ...mapMutations('products', ['populateProducts', 'searchProductsHandler', 'selectedProductsHandler', 'editProductDialogHandler', 'validUpdateProductHandler', 'createProductDialogHandler', 'validCreateProductHandler']),
-    ...mapActions('products', ['getProducts', 'updateProduct', 'createProduct', 'deleteProduct']),
+    ...mapActions('products', ['getProducts', 'updateProductPrice', 'updateProductStock', 'createProduct', 'deleteProduct']),
     createProductToUpdate () {
-      const sizes = this.cleanObject(this.productToUpdate.stock.size)
-      const selectedProductsIds = this.selectedProducts.map(product => product.id)
-      selectedProductsIds.forEach((id) => {
-        this.updateProduct({id, sizes})
-      })
-    },
-    createProductToCreate() {
-      this.productToCreate.stock.size = this.objStringToNumber(this.productToCreate.stock.size);
-      this.createProduct(this.productToCreate);
-    },
-    // transform object string values into number
-    objStringToNumber (obj) {
-      for (const propName in obj) {
-        obj[propName] = parseFloat(obj[propName])
+      if (this.selectOptionToModifyProduct === 'Precios') {
+        const { price } = this.productToUpdatePrice;
+        const selectedProductsIds = this.selectedProducts.map(product => product.id)
+        selectedProductsIds.forEach((id) => {
+          this.updateProductPrice({id, price})
+        })
+      } else if (this.selectOptionToModifyProduct === 'Stock') {
+        const { stock } = this.productToUpdateStock;
+        const selectedProductsIds = this.selectedProducts.map(product => product.id)
+        selectedProductsIds.forEach((id) => {
+          this.updateProductStock({id, stock})
+        })
       }
-      return obj
     },
-    // Remove object null values and transform string values to number
-    cleanObject (obj) {
-      for (const propName in obj) {
-        if (!obj[propName]) {
-          delete obj[propName]
-        } else {
-          obj[propName] = parseFloat(obj[propName])
-        }
-      }
-      return obj
-    }
   }
 }
 </script>

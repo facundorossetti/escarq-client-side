@@ -61,9 +61,8 @@
       <v-toolbar color="white" elevation="3" class="rounded-lg">
         <v-toolbar-title>Administrador</v-toolbar-title>
         <v-spacer />
-        <v-app-bar-nav-icon />
-        <v-btn @click="showInConsole">
-          MAIN PAGE
+        <v-btn to="/">
+          TO MAIN PAGE
         </v-btn>
         <template #extension>
           <v-tabs

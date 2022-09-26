@@ -50,8 +50,14 @@ export const actions = {
       .catch((error) => console.log(error))
     commit('loadingProductsHandler', false)
   },
-  async updateProduct ({ commit, dispatch }, {id, sizes}) {
-    await this.$axios.patch('/updateProduct', { id, sizes })
+  async updateProductPrice ({ commit, dispatch }, {id, price}) {
+    await this.$axios.patch('/updateProductPrice', {id, price})
+      .then((r) => dispatch('getProducts'))
+      .catch((error) => console.log(error))
+    commit('editProductDialogHandler', false)
+  },
+  async updateProductStock ({ commit, dispatch }, {id, stock}) {
+    await this.$axios.patch('/updateProductStock', {id, stock})
       .then((r) => dispatch('getProducts'))
       .catch((error) => console.log(error))
     commit('editProductDialogHandler', false)
