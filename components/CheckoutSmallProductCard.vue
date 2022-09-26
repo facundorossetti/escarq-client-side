@@ -1,11 +1,11 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card class="rounded-lg transition-swing py-2 px-4" :elevation="hover ? 8 : 2">
+    <v-card class="rounded-lg transition-swing py-2 px-4" :elevation="hover ? 6 : 2">
       <div class="d-flex align-center justify-space-between">
         <img
           v-if="product.imageurl !== ''"
           :src="product.imageurl"
-          :width="50"
+          :width="35"
           :height="50"
           class="transition-swing"
           :class="{'scale-image': hover}"

@@ -7,7 +7,7 @@
         <h3 class="price secondary--text">${{ product.price }}</h3>
       </div>
       <div class="add-cart-button">
-        <v-btn color="secondary" depressed fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, imageurl: product.imageurl})">
+        <v-btn color="secondary" depressed fab small @click="addItemToChart({id: product.id, description: product.description, price: product.price, quantity: quantity, imageurl: product.imageurl}), showSnackbar(true)">
           <v-icon color="#000000">mdi-cart</v-icon>
         </v-btn>
       </div>
@@ -33,10 +33,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("chart", ["addItemToChart"]),
-    console() {
-      console.log(this.product);
-    }
+    ...mapMutations("chart", ["addItemToChart", "showSnackbar"]),
   }
 };
 </script>

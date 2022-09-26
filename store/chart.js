@@ -2,10 +2,14 @@ export const state = () => ({
   chart: [],
   chartModal: false,
   checkoutValidation: false,
+  snackbar: false,
   checkoutModal: false
 })
 
 export const mutations = {
+  showSnackbar (state, value) {
+    state.snackbar = value;
+  },
   chartModalHandler (state, value) {
     state.chartModal = value
   },

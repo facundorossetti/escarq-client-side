@@ -44,8 +44,12 @@ export default {
 
 <style lang="scss" scoped>
 .small-product-card {
-  box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.4) !important;
   max-height: 150px;
   background: #000000;
+  transition: all 0.4s ease;
+  &:hover {
+    box-shadow: 0px 0px 15px 4px rgba(255, 255, 255, 0.4) !important;
+  }
 }
 </style>

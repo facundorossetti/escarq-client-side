@@ -1,5 +1,5 @@
 <template>
-  <div class="index-page">
+  <div class="index-page">    
     <TheHero></TheHero>
     <v-container class="pt-12" fluid>
       <v-row justify="center" align="center" class="mx-2">
@@ -223,7 +223,6 @@ export default {
     ...mapGetters('chart', ['getTotalPrice']),
     ...mapState('chart', ['checkoutModal', 'chart', 'checkoutValidation']),
     ...mapState('products', ['productItems']),
-    
     isChartModal: {
       get() {
         return this.checkoutModal

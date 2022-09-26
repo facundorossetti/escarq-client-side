@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="isSnackbar"
+      :timeout="3000"
+      color="green"
+      transition="scroll-y-transition"
+    >
+      Producto Añadido
+    </v-snackbar>
     <v-app-bar
       app
       height="70"
@@ -8,7 +16,7 @@
     >
       <v-container>
         <v-row justify="space-between" align="center">
-          <v-col cols="2" align="start">
+          <v-col cols="3" align="start">
             <img src="../static/logo.png" width="100px" height="50px" />
           </v-col>
           <v-col cols="9" align="end">
@@ -34,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
 
 export default {
   name: "TheHero",
@@ -49,10 +57,19 @@ export default {
     };
   },
   computed: {
+    ...mapState("chart", ["snackbar"]),
     ...mapGetters("chart", ["getTotalItems"]),
+    isSnackbar: {
+      get() {
+        return this.snackbar
+      },
+      set(value) {
+        this.showSnackbar(value);
+      }
+    }
   },
   methods: {
-    ...mapMutations("chart", ["chartModalHandler"]),
+    ...mapMutations("chart", ["chartModalHandler", "showSnackbar"]),
   }
 }
 </script>
