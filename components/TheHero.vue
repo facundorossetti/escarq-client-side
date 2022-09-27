@@ -11,33 +11,34 @@
     <v-app-bar
       app
       height="70"
-      color="#000000"
+      color="transparent"
+      elevation="0"
       scroll-target="#scrolling-techniques-8"
     >
       <v-container>
         <v-row justify="space-between" align="center">
-          <v-col cols="3" align="start">
+          <!-- <v-col cols="3" align="start">
             <img src="../static/logo.png" width="100px" height="50px" />
-          </v-col>
-          <v-col cols="9" align="end">
+          </v-col> -->
+          <v-col cols="12" align="end">
             <v-badge
               v-if="getTotalItems"
               color="pink"
               :content="getTotalItems"
               overlap
             >
-              <v-btn color="secondary" depressed small fab @click="chartModalHandler(true)">
-                <v-icon color="#000000">mdi-cart</v-icon>
+              <v-btn color="primary" depressed small fab @click="chartModalHandler(true)">
+                <v-icon>mdi-cart</v-icon>
               </v-btn>
             </v-badge>
-            <v-btn v-else color="secondary" depressed small fab @click="chartModalHandler(true)">
-              <v-icon color="#000000">mdi-cart</v-icon>
+            <v-btn v-else color="primary" depressed small fab @click="chartModalHandler(true)">
+              <v-icon>mdi-cart</v-icon>
             </v-btn>
           </v-col>
         </v-row>
       </v-container>
     </v-app-bar>
-    <img src="../static/banner_2.png" width="100%"  class="TheHero" />
+    <img src="../static/banner.png" width="100%" class="TheHero" />
   </div>
 </template>
 
@@ -75,7 +76,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.TheHero {
+  margin-bottom: -10px;
+}
 .pointer-none {
   pointer-events: none;
 }
+// .v-app-bar {
+//   background: url(../static/banner.png);
+//   background-position: top;
+//   background-size: cover;
+// }
 </style>

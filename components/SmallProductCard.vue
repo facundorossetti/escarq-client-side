@@ -10,7 +10,7 @@
         <h3 class="normal-text-light">{{ product.description }}</h3>
         <div class="d-flex align-center">
           <h3 class="normal-text-light">${{ product.price }} x {{ product.quantity }} </h3>
-          <v-btn class="ml-5 mb-4" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
+          <v-btn class="ml-5" color="primary" fab x-small depressed @click="$emit('clickOnDelete', {id: product.id, size: product.size})">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </div>

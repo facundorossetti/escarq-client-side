@@ -10,8 +10,8 @@
     <v-container v-if="chart.length" class="px-4 pt-6">
       <v-row align="center" justify="center" class="mb-4">
         <v-col cols="12" align="center">
-          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="secondary" @click="chartModalHandler(false)">
-            <v-icon color="#000000">mdi-close</v-icon>
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
+            <v-icon>mdi-close</v-icon>
           </v-btn>
           <h2 class="normal-text-light">Carrito de compras</h2>
         </v-col>
@@ -38,7 +38,7 @@
     <v-container v-else class="px-4 pt-6">
       <v-row align="center" justify="center">
         <v-col cols="12" align="center">
-          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="secondary" @click="chartModalHandler(false)">
+          <v-btn v-if="$vuetify.breakpoint.xsOnly" fab x-small absolute left top depressed class="mt-10" color="primary" @click="chartModalHandler(false)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <h2 class="normal-text-light">Carrito de compras</h2>

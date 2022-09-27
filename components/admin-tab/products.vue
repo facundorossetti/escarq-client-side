@@ -3,28 +3,32 @@
     <v-row justify="center" align="center">
       <v-col cols="12" align="center">
         <div class="d-flex flex-column">
-          <div class="d-flex mb-5">
-            <v-btn
-              color="primary"
-              class="rounded-lg flex-grow-0 flex-shrink-0"
-              elevation="3"
-              :disabled="!selectedProductsIds.length"
-              @click="editProductDialogHandler(true)"
-            >
-              Editar productos
-            </v-btn>
-            <v-spacer />
-            <v-text-field
-              v-model="isSearchProducts"
-              append-icon="mdi-magnify"
-              label="Buscar"
-              elevation="3"
-              hide-details
-              dense
-              solo
-              class="rounded-lg flex-grow-0 flex-shrink-0"
-            />
-          </div>
+          <v-row class="mb-5" align="center" justify="space-between">
+            <v-col cols="12" sm="3" align="end">
+              <v-text-field
+                v-model="isSearchProducts"
+                append-icon="mdi-magnify"
+                label="Buscar"
+                elevation="3"
+                hide-details
+                dense
+                solo
+                class="rounded-lg flex-grow-0 flex-shrink-0"
+              />
+            </v-col>
+            <v-col cols="12" sm="3" align="start">
+              <v-btn
+                block
+                color="primary"
+                class="rounded-lg flex-grow-0 flex-shrink-0"
+                elevation="3"
+                :disabled="!selectedProductsIds.length"
+                @click="editProductDialogHandler(true)"
+              >
+                Editar productos
+              </v-btn>
+            </v-col>
+          </v-row>
           <v-dialog
             v-model="isCreateProductDialog"
             max-width="650px"
@@ -211,6 +215,7 @@
             </v-card>
           </v-dialog>
           <v-data-table
+            :disable-sort="$vuetify.breakpoint.xsOnly"
             v-model="isSelectedProducts"
             :headers="productHeaders"
             :items="productItems"

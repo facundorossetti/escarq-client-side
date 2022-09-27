@@ -3,27 +3,31 @@
     <v-row justify="center" align="center">
       <v-col cols="12" align="center">
         <div class="d-flex flex-column">
-          <div class="d-flex mb-5">
-            <v-btn
-              color="primary"
-              class="rounded-lg flex-grow-0 flex-shrink-0"
-              elevation="3"
-              @click="createUserDialogHandler(true)"
-            >
-              Crear usuario
-            </v-btn>
-            <v-spacer />
-            <v-text-field
-              v-model="isSearchUsers"
-              append-icon="mdi-magnify"
-              label="Buscar"
-              elevation="3"
-              hide-details
-              dense
-              solo
-              class="rounded-lg flex-grow-0 flex-shrink-0"
-            />
-          </div>
+          <v-row class="mb-5" align="center" justify="space-between">
+            <v-col cols="12" sm="3" align="end">
+              <v-btn
+                block
+                color="primary"
+                class="rounded-lg flex-grow-0 flex-shrink-0"
+                elevation="3"
+                @click="createUserDialogHandler(true)"
+              >
+                Crear usuario
+              </v-btn>
+            </v-col>
+            <v-col cols="12" sm="3" align="start">
+              <v-text-field
+                v-model="isSearchUsers"
+                append-icon="mdi-magnify"
+                label="Buscar"
+                elevation="3"
+                hide-details
+                dense
+                solo
+                class="rounded-lg flex-grow-0 flex-shrink-0"
+              />
+            </v-col>
+          </v-row>
           <v-dialog
             v-model="isCreateUserDialog"
             max-width="400px"
@@ -91,6 +95,7 @@
             </v-card>
           </v-dialog>
           <v-data-table
+            :disable-sort="$vuetify.breakpoint.xsOnly"
             :headers="userHeaders"
             :items="userItems"
             :loading="loadingUsers"

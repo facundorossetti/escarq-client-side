@@ -1,22 +1,11 @@
 @font-face {
-  font-family: "AngerStyles";
-  src: local("AngerStyles"),
-   url(~assets/fonts/AngerStyles.ttf) format("truetype");
-}
-@font-face {
-  font-family: "WrathStyles";
-  src: local("WrathStyles"),
-   url(~assets/fonts/WrathStyles.ttf) format("truetype");
-}
-@font-face {
-  font-family: "GothicUltraTrendy";
-  src: local("GothicUltraTrendy"),
-   url(~assets/fonts/GothicUltraTrendy.ttf) format("truetype");
+  font-family: "BebasRegular";
+  src: local("BebasRegular"),
+   url(~assets/fonts/BebasRegular.ttf) format("truetype");
 }
 
 .normal-text-light {
-  font-family: 'GothicUltraTrendy';
+  font-family: 'BebasRegular';
   color: #ededed;
-  letter-spacing: 2px;
-  font-size: 32px;
+  font-size: 24px;
 }

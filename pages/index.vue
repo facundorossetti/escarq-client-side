@@ -1,9 +1,9 @@
 <template>
-  <div class="index-page">    
+  <div>    
     <TheHero></TheHero>
-    <v-container class="pt-12" fluid>
+    <v-container class="pt-12 index-page" fluid>
       <v-row justify="center" align="center" class="mx-2">
-        <v-col align="center" v-for="product in productItems" :key="product.id" cols="12" sm="6" md="4" lg="3" class="product-cards-container">
+        <v-col align="center" v-for="product in productItems" :key="product.id" cols="12" sm="6" md="3" lg="3" class="product-cards-container mb-5">
           <product-card :product="product" />
         </v-col>
       </v-row>
@@ -258,10 +258,12 @@ export default {
 
 <style lang="scss" scoped>
 .index-page {
-  background-color: #000000;
+  background-image: url(../static/bakground.png);
+  background-size: contain;
+  background-repeat: repeat;
 }
 .product-cards-container {
-  min-height: 650px !important;
+  min-height: 450px !important;
 }
 .payment-dialog-information {
   border: 1px solid #303030;

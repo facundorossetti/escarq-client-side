@@ -2,35 +2,18 @@
   <div v-if="!logged">
     <v-container>
       <v-row justify="center" align="center">
-        <v-col cols="6" align="center">
+        <v-col cols="12" sm="6" align="center">
           <v-hover v-slot="{ hover }">
-            <v-card class="pa-10 mt-16 rounded-lg transition-swing" :elevation="hover ? 6 : 2">
+            <v-card class="mt-16 pa-10 rounded-lg transition-swing" :elevation="hover ? 6 : 2">
               <v-form
                 ref="loginForm"
                 v-model="valid"
                 lazy-validation
               >
                 <v-text-field
-                  v-model="email"
-                  :rules="[
-                    v => !!v || 'Requerido.',
-                    v => v.length >= 8 || 'Minimo 8 caracteres',
-                    v => /.+@.+\..+/.test(v) || 'E-mail invalido',
-                  ]"
-                  label="E-mail"
-                  autofocus
-                  validate-on-blur
-                  outlined
-                  rounded
-                  required
-                  type="email"
-                  class="rounded-lg mb-2"
-                />
-
-                <v-text-field
                   v-model="password"
                   :type="showPasswordIcon ? 'text' : 'password'"
-                  :rules="[v => !!v || 'Por favor ingrese una contraseña.', v => v.length >= 8 || 'Minimo 8 caracteres']"
+                  :rules="[v => !!v || 'Por favor ingrese una contraseña.', v => v.length >= 4 || 'Minimo 4 caracteres']"
                   label="Contraseña"
                   :append-icon="showPasswordIcon ? 'mdi-eye' : 'mdi-eye-off'"
                   class="rounded-lg"
@@ -68,6 +51,7 @@
           <v-tabs
             v-model="tab"
             fixed-tabs
+            show-arrows
             color="primary"
           >
             <v-tabs-slider color="primary" />
@@ -95,27 +79,31 @@
           <v-row justify="center" align="center">
             <v-col cols="12" align="center">
               <div class="d-flex flex-column">
-                <div class="d-flex mb-5">
-                  <v-btn
-                    color="primary"
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                    elevation="3"
-                    @click="modifyOrderStatusDialog = true"
-                  >
-                    Modificar estado
-                  </v-btn>
-                  <v-spacer />
-                  <v-text-field
-                    v-model="searchOrders"
-                    append-icon="mdi-magnify"
-                    label="Buscar"
-                    elevation="3"
-                    hide-details
-                    dense
-                    solo
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                  />
-                </div>
+                <v-row class="mb-5" align="center" justify="space-between">
+                  <v-col cols="12" sm="3" align="end">
+                    <v-btn
+                      block
+                      color="primary"
+                      class="rounded-lg flex-grow-0 flex-shrink-0"
+                      elevation="3"
+                      @click="modifyOrderStatusDialog = true"
+                    >
+                      Modificar estado
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" sm="3" align="start">
+                    <v-text-field
+                      v-model="searchOrders"
+                      append-icon="mdi-magnify"
+                      label="Buscar"
+                      elevation="3"
+                      hide-details
+                      dense
+                      solo
+                      class="rounded-lg flex-grow-0 flex-shrink-0"
+                    />
+                  </v-col>
+                </v-row>
                 <v-dialog
                   v-model="modifyOrderStatusDialog"
                   max-width="600px"
@@ -250,19 +238,20 @@
           <v-row justify="center" align="center">
             <v-col cols="12" align="center">
               <div class="d-flex flex-column">
-                <div class="d-flex mb-5">
-                  <v-spacer />
-                  <v-text-field
-                    v-model="searchPayments"
-                    append-icon="mdi-magnify"
-                    label="Buscar"
-                    elevation="3"
-                    hide-details
-                    dense
-                    solo
-                    class="rounded-lg flex-grow-0 flex-shrink-0"
-                  />
-                </div>
+                <v-row class="mb-5" align="center" justify="end">
+                  <v-col cols="12" sm="3" align="end">
+                    <v-text-field
+                      v-model="searchPayments"
+                      append-icon="mdi-magnify"
+                      label="Buscar"
+                      elevation="3"
+                      hide-details
+                      dense
+                      solo
+                      class="rounded-lg flex-grow-0 flex-shrink-0"
+                    />
+                  </v-col>
+                </v-row>
                 <v-dialog
                   v-model="paymentsDialog"
                 >
@@ -359,7 +348,6 @@ export default {
       orderStatuses: ['Pendiente', 'Entregado'],
       ordersListSelection: 1,
       selectOptionToModifyProduct: 'Stock',
-      email: '',
       password: '',
       showPasswordIcon: false,
       valid: false,
@@ -369,7 +357,7 @@ export default {
       searchOrders: '',
       searchPayments: '',
       paymentDialogItems: [],
-      logged: true,
+      logged: false,
       tab: null,
       items: [
         'productos', 'usuarios', 'ordenes de compra', 'pagos'
@@ -488,7 +476,7 @@ export default {
       this.working = false
     },
     login () {
-      if (this.valid) {
+      if (this.password === 'escar') {
         this.logged = true
       }
     },
