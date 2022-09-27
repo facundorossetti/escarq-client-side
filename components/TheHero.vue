@@ -38,7 +38,7 @@
         </v-row>
       </v-container>
     </v-app-bar>
-    <img src="../static/banner.png" width="100%" class="TheHero" />
+    <img src="../static/banner.png" width="100%" :height="$vuetify.breakpoint.xsOnly ? '380px' : '100%'" class="TheHero" />
   </div>
 </template>
 
